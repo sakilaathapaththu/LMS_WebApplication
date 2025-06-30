@@ -15,7 +15,8 @@ const pages = ['Home', 'Courses','About Us', 'Contact Us'];
 const pageRoutes = {
   Home: '/',
   Courses: '/courses',
-  'Contact Us': '/contact',
+  'Contact Us': '/contactus',
+  'About Us':'/aboutus',
 };
 const loggedInMenu = ['Profile', 'Logout'];
 

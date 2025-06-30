@@ -18,6 +18,10 @@ import AddCoursePage from "./Pages/admin/AddCoursePage";
 import AdminAllCoursesPage from "./Pages/admin/AdminAllCoursesPage.jsx";
 import AdminUserManagement from "./Pages/admin/AdminUserManagement.jsx";
 import AdminProfile from "./Pages/admin/AdminProfile.jsx";
+import AboutUs from "./Pages/AboutUs.jsx";
+import ContactUs from "./Pages/ContactUs.jsx";
+
+
 function AppRoutes() {
   const location = useLocation();
 
@@ -32,6 +36,9 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signuppage />} />
         <Route path="/login" element={<Login />} />
+         <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/contactus" element={<ContactUs />} />
+      
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:id/enroll" element={<EnrollCoursePage />} />
         <Route path="/courses/add" element={<PrivateRoute><AddCoursePage /></PrivateRoute>} />
