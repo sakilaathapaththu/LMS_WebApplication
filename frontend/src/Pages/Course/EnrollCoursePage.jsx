@@ -23,7 +23,7 @@ const EnrollCoursePage = () => {
     try {
       await API.post("/courses/enroll", { courseId: id, enrollmentKey: key });
       alert("Enrollment submitted. Waiting for admin approval.");
-      navigate("/my-courses"); // or wherever you want
+      navigate("/"); // or wherever you want
     } catch (err) {
       alert(err.response?.data?.message || "Enrollment failed");
     }
