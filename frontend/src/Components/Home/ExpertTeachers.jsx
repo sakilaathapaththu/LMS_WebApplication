@@ -1,45 +1,65 @@
 import React from 'react';
-import { Container, Grid, Card, CardContent, Typography, Avatar, CardActions, IconButton, Box } from '@mui/material';
-import { Facebook, Twitter, Instagram } from '@mui/icons-material';
-import profile01 from "../../Assets/images/profile.jpg"
+import {
+  Container, Grid, Card, CardContent, Typography,
+  IconButton, CardActions, Box
+} from '@mui/material';
+import { Facebook, Instagram } from '@mui/icons-material';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
+import profile01 from "../../Assets/images/profile.jpg";
+import sakila from "../../Assets/images/sakila.jpeg";
+
+// Each teacher now has social media links
 const teachers = [
   {
-    name: 'Damie Glendell',
+    name: 'Sakila Athapaththu',
     title: 'Co-Director',
-    image: profile01, // replace with actual image link
+    image: sakila,
+    facebook: 'https://facebook.com/sakilaathapaththu',
+    instagram: 'https://instagram.com/sakilaathapaththu',
+    linkedin: 'https://linkedin.com/in/sakila-athapaththu-412647215',
   },
   {
-    name: 'James Catwin',
-    title: 'Art Director',
-    image: profile01, // replace with actual image link
+    name: 'Thamidu Sulakshana',
+    title: 'Director',
+    image: profile01,
+    facebook: 'https://facebook.com/thamidu.sulakshana',
+    instagram: 'https://instagram.com/thamidu.sulakshana',
+    linkedin: 'https://linkedin.com/in/thamidu-sulakshana',
   },
   {
-    name: 'Jenny Sheen',
-    title: 'Digital Media Programming',
-    image: profile01, // replace with actual image link
+    name: 'Praveen Liyanage',
+    title: 'Director',
+    image: profile01,
+    facebook: 'https://facebook.com/praveen.liyanage',
+    instagram: 'https://instagram.com/praveen.liyanage',
+    linkedin: 'https://linkedin.com/in/praveen-liyanage',
   },
   {
-    name: 'Jim Morrison',
-    title: 'Chief Programmer',
-    image: profile01, // replace with actual image link
+    name: 'Thilina Sadamal',
+    title: 'Director',
+    image: profile01,
+    facebook: 'https://facebook.com/thilina.sadamal',
+    instagram: 'https://instagram.com/thilina.sadamal',
+    linkedin: 'https://linkedin.com/in/thilina-sadamal',
   },
 ];
 
-const TeacherCard = ({ name, title, image }) => (
-  <Card 
-    sx={{ 
+const TeacherCard = ({ name, title, image, facebook, instagram, linkedin }) => (
+  <Card
+    sx={{
       '&:hover': {
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'rgba(0,0,0,0.04)',
       },
       transition: 'background-color 0.3s ease-in-out',
+      borderRadius: 3
     }}
   >
     <Box
       component="img"
       alt={name}
       src={image}
-      sx={{ width: '100%', height: 'auto' }}
+      sx={{ width: '100%', height:'100%', objectFit: 'cover' }}
     />
     <CardContent>
       <Typography variant="h6" component="div">
@@ -50,13 +70,13 @@ const TeacherCard = ({ name, title, image }) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <IconButton aria-label="facebook">
+      <IconButton aria-label="facebook" component="a" href={facebook} target="_blank" rel="noreferrer">
         <Facebook />
       </IconButton>
-      <IconButton aria-label="twitter">
-        <Twitter />
+      <IconButton aria-label="linkedin" component="a" href={linkedin} target="_blank" rel="noreferrer">
+        <LinkedInIcon />
       </IconButton>
-      <IconButton aria-label="instagram">
+      <IconButton aria-label="instagram" component="a" href={instagram} target="_blank" rel="noreferrer">
         <Instagram />
       </IconButton>
     </CardActions>
@@ -64,8 +84,8 @@ const TeacherCard = ({ name, title, image }) => (
 );
 
 const ExpertTeachers = () => (
-  <Container>
-    <Typography variant="h4" component="h2" align="center" gutterBottom sx={{mt:5,mb:5}}>
+  <Container sx={{ my: 8 }}>
+    <Typography variant="h4" component="h2" align="center" gutterBottom>
       Our Expert Team
     </Typography>
     <Grid container spacing={4}>

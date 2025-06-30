@@ -7,27 +7,41 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Utils/AuthContext";
 import HomePageNavbar from "../../Components/Navbar/Homepagenavbar";
-import { 
-  PlayArrow, 
-  Schedule, 
-  TrendingUp, 
-  Person, 
+import {
+  PlayArrow,
+  Schedule,
+  TrendingUp,
+  Person,
   Visibility,
-  StarBorder,
   BookmarkBorder
 } from "@mui/icons-material";
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
   const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const endpoint = user ? "/courses/my" : "/courses/all";
     API.get(endpoint)
-      .then(res => setCourses(res.data))
+      .then(res => {
+        setCourses(res.data);
+        setFilteredCourses(res.data);
+      })
       .catch(err => console.error("Error loading courses", err));
   }, [user]);
+
+  useEffect(() => {
+    const lowerQuery = searchQuery.toLowerCase();
+    const filtered = courses.filter(course =>
+      course.title.toLowerCase().includes(lowerQuery) ||
+      (course.category && course.category.toLowerCase().includes(lowerQuery))
+    );
+    setFilteredCourses(filtered);
+  }, [searchQuery, courses]);
 
   const handleEnrollClick = (courseId) => {
     if (!user) {
@@ -57,7 +71,7 @@ const CoursesPage = () => {
   };
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg,rgb(107, 214, 231) 0%,rgb(87, 167, 183) 100%)',
       position: 'relative',
@@ -72,20 +86,20 @@ const CoursesPage = () => {
         pointerEvents: 'none'
       }
     }}>
-      <HomePageNavbar/>
-      
+      <HomePageNavbar />
+
       {/* Hero Section */}
-      <Box sx={{ 
-        textAlign: 'center', 
-        py: 6, 
+      <Box sx={{
+        textAlign: 'center',
+        py: 6,
         px: 3,
         position: 'relative',
         zIndex: 1
       }}>
-        <Typography 
-          variant="h2" 
-          component="h1" 
-          sx={{ 
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{
             fontWeight: 800,
             background: 'linear-gradient(45deg, #ffffff, #e3f2fd)',
             WebkitBackgroundClip: 'text',
@@ -96,9 +110,9 @@ const CoursesPage = () => {
         >
           {user ? 'My Learning Journey' : 'Discover Amazing Courses'}
         </Typography>
-        <Typography 
-          variant="h6" 
-          sx={{ 
+        <Typography
+          variant="h6"
+          sx={{
             color: 'rgba(255, 255, 255, 0.8)',
             maxWidth: 600,
             mx: 'auto',
@@ -109,10 +123,29 @@ const CoursesPage = () => {
         </Typography>
       </Box>
 
+      {/* Search Input */}
+      <Box sx={{ px: { xs: 2, md: 4 }, mb: 4, textAlign: 'center' }}>
+        <input
+          type="text"
+          placeholder="Search by title or category..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            width: '100%',
+            maxWidth: 400,
+            padding: '12px 20px',
+            borderRadius: '8px',
+            border: '1px solid #ccc',
+            fontSize: '1rem',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+          }}
+        />
+      </Box>
+
       {/* Courses Grid */}
       <Box sx={{ position: 'relative', zIndex: 1, pb: 6 }}>
         <Grid container spacing={4} sx={{ px: { xs: 2, md: 4 } }}>
-          {courses.map(course => (
+          {filteredCourses.map(course => (
             <Grid item xs={12} sm={6} lg={4} key={course._id}>
               <Card sx={{
                 height: '100%',
@@ -124,7 +157,7 @@ const CoursesPage = () => {
                 backdropFilter: 'blur(20px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'all 0.4s',
                 position: 'relative',
                 '&:hover': {
                   transform: 'translateY(-8px) scale(1.02)',
@@ -137,7 +170,6 @@ const CoursesPage = () => {
                   }
                 }
               }}>
-                {/* Course Image with Overlay */}
                 <Box sx={{ position: 'relative', overflow: 'hidden' }}>
                   {course.coverImage && (
                     <CardMedia
@@ -152,16 +184,11 @@ const CoursesPage = () => {
                       }}
                     />
                   )}
-                  
-                  {/* Gradient Overlay */}
-                  <Box 
+                  <Box
                     className="course-overlay"
                     sx={{
                       position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
+                      top: 0, left: 0, right: 0, bottom: 0,
                       background: 'linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8))',
                       opacity: 0,
                       transition: 'opacity 0.3s ease',
@@ -170,19 +197,15 @@ const CoursesPage = () => {
                       justifyContent: 'center'
                     }}
                   >
-                    <IconButton 
-                      sx={{ 
-                        color: 'white', 
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        backdropFilter: 'blur(10px)',
-                        '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
-                      }}
-                    >
+                    <IconButton sx={{
+                      color: 'white',
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
+                      '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+                    }}>
                       <PlayArrow sx={{ fontSize: 32 }} />
                     </IconButton>
                   </Box>
-
-                  {/* Level Badge */}
                   <Chip
                     label={`${getLevelIcon(course.level)} ${course.level}`}
                     size="small"
@@ -196,8 +219,6 @@ const CoursesPage = () => {
                       fontSize: '0.75rem'
                     }}
                   />
-
-                  {/* Bookmark Icon */}
                   <IconButton
                     sx={{
                       position: 'absolute',
@@ -214,17 +235,16 @@ const CoursesPage = () => {
                   </IconButton>
                 </Box>
 
-                <CardContent sx={{ 
-                  flexGrow: 1, 
-                  display: 'flex', 
+                <CardContent sx={{
+                  flexGrow: 1,
+                  display: 'flex',
                   flexDirection: 'column',
                   p: 3
                 }}>
-                  {/* Course Title */}
-                  <Typography 
-                    variant="h6" 
+                  <Typography
+                    variant="h6"
                     component="h3"
-                    sx={{ 
+                    sx={{
                       fontWeight: 700,
                       mb: 2,
                       color: '#1a1a1a',
@@ -237,11 +257,9 @@ const CoursesPage = () => {
                   >
                     {course.title}
                   </Typography>
-
-                  {/* Course Description */}
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
+                  <Typography
+                    variant="body2"
+                    sx={{
                       color: '#666',
                       mb: 3,
                       lineHeight: 1.6,
@@ -254,10 +272,7 @@ const CoursesPage = () => {
                   >
                     {course.description.slice(0, 120)}...
                   </Typography>
-
-                  {/* Course Meta Information */}
                   <Box sx={{ mb: 3 }}>
-                    {/* Instructor */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
                       <Avatar sx={{ width: 24, height: 24, mr: 1, bgcolor: '#667eea' }}>
                         <Person sx={{ fontSize: 14 }} />
@@ -266,8 +281,6 @@ const CoursesPage = () => {
                         {course.conductorName}
                       </Typography>
                     </Box>
-
-                    {/* Duration */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Schedule sx={{ fontSize: 16, mr: 1, color: '#667eea' }} />
                       <Typography variant="body2" sx={{ color: '#666' }}>
@@ -276,7 +289,6 @@ const CoursesPage = () => {
                     </Box>
                   </Box>
 
-                  {/* Action Button */}
                   {user && course.isApproved ? (
                     <Button
                       variant="contained"
@@ -332,16 +344,15 @@ const CoursesPage = () => {
           ))}
         </Grid>
 
-        {/* Empty State */}
-        {courses.length === 0 && (
-          <Box sx={{ 
-            textAlign: 'center', 
+        {filteredCourses.length === 0 && (
+          <Box sx={{
+            textAlign: 'center',
             py: 8,
             px: 3
           }}>
-            <Typography 
-              variant="h4" 
-              sx={{ 
+            <Typography
+              variant="h4"
+              sx={{
                 color: 'rgba(255, 255, 255, 0.8)',
                 mb: 2,
                 fontWeight: 600
@@ -349,9 +360,9 @@ const CoursesPage = () => {
             >
               No courses found
             </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
+            <Typography
+              variant="body1"
+              sx={{
                 color: 'rgba(255, 255, 255, 0.6)',
                 maxWidth: 400,
                 mx: 'auto'
