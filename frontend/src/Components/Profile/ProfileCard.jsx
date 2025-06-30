@@ -30,7 +30,8 @@ const ProfileCard = ({ user }) => {
           <CardContent>
             <Typography variant="h6">{user.username}</Typography>
             <Typography color="text.secondary">
-              {user.fullName} {user.lastName}
+             
+              {user.fullName}
             </Typography>
             <Typography color="text.secondary">{user.email}</Typography>
             <Typography color="text.secondary">NIC: {user.nic}</Typography>

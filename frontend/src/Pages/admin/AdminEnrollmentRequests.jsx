@@ -3,7 +3,7 @@ import API from "../../Utils/api";
 import {
   Box, Typography, Paper, Grid, Button, Divider
 } from "@mui/material";
-
+import AdminSidebar from "../../Components/Admin/AdminSidebar";
 const AdminEnrollments = () => {
   const [requests, setRequests] = useState([]);
 
@@ -32,7 +32,10 @@ const AdminEnrollments = () => {
 
 
   return (
+     <Box sx={{ display: "flex" }}>
+      <AdminSidebar/>
     <Box sx={{ p: 4 }}>
+      
       <Typography variant="h4" gutterBottom>
         Enrollment Requests
       </Typography>
@@ -69,6 +72,7 @@ const AdminEnrollments = () => {
           ))}
         </Grid>
       )}
+    </Box>
     </Box>
   );
 };

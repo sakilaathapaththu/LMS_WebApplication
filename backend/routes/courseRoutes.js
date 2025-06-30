@@ -42,7 +42,7 @@ router.post("/enroll", auth, async (req, res) => {
   res.status(200).json({ message: "Enrollment request submitted. Awaiting admin approval." });
 });
 
-// Access course content (only if approved)
+
 // Access course content (only if approved)
 router.get("/:courseId/access", auth, async (req, res) => {
   try {
@@ -94,6 +94,53 @@ router.get("/my", auth, async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    await Course.findByIdAndDelete(req.params.id);
+    res.json({ message: "Course deleted" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to delete course" });
+  }
+});
+
+// Update course (basic info only)
+router.put("/:id", async (req, res) => {
+  try {
+    const {
+      courseId,
+      title,
+      description,
+      conductorName,
+      category,
+      level,
+      duration,
+      enrollmentKey,
+      visible,
+      videoClips,
+      prerequisites
+    } = req.body;
+
+    const updateData = {
+      courseId,
+      title,
+      description,
+      conductorName,
+      category,
+      level,
+      duration,
+      enrollmentKey,
+      visible,
+      videoClips: Array.isArray(videoClips) ? videoClips : JSON.parse(videoClips),
+      prerequisites: Array.isArray(prerequisites) ? prerequisites : JSON.parse(prerequisites),
+    };
+
+    const updatedCourse = await Course.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    res.json({ message: "Course updated", course: updatedCourse });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update course" });
+  }
+});
 
 
 

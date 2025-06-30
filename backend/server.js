@@ -32,6 +32,8 @@ const con = require("./database/connection.js");
 
 // Auth Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userRoutes")); // ✅ REQUIRED
 
 app.use("/api/courses", require("./routes/courseRoutes"));
 

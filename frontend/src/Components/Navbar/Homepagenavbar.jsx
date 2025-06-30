@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Utils/AuthContext'; // adjust path if needed
 import API, { IMAGE_BASE_URL } from "../../Utils/api";
 
-const pages = ['Home', 'Courses', 'Contact Us'];
+const pages = ['Home', 'Courses','About Us', 'Contact Us'];
 const pageRoutes = {
   Home: '/',
   Courses: '/courses',
