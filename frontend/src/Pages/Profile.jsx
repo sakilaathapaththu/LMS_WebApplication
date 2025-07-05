@@ -6,6 +6,8 @@ import HomePageNavbar from "../Components/Navbar/Homepagenavbar";
 import { useNavigate } from "react-router-dom";
 import API from "../Utils/api";
 import EditProfileModal from "../Components/Profile/EditProfileModal";
+import MyEnrolledCourses from "../Components/Profile/MyEnrolledCourses";
+
 
 const Profile = () => {
   const { user, logout } = useAuth();
@@ -36,7 +38,7 @@ const Profile = () => {
   return (
     <Box>
       <HomePageNavbar />
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Box sx={{ mt: 5 }}>
           <Typography variant="h4" gutterBottom>My Profile</Typography>
           <ProfileCard user={user} />
@@ -45,7 +47,9 @@ const Profile = () => {
             <Button variant="outlined" color="error" onClick={handleDelete}>Delete Account</Button>
           </Box>
         </Box>
+        <MyEnrolledCourses />
       </Container>
+      
 
       
         <EditProfileModal

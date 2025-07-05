@@ -39,6 +39,9 @@ app.use("/api/courses", require("./routes/courseRoutes"));
 
 app.use("/api/enrollments", require("./routes/enrollmentRoutes"));
 
+const quizRoutes = require("./routes/quizRoutes");
+app.use("/api/quizzes", quizRoutes);
+
 
 
 con

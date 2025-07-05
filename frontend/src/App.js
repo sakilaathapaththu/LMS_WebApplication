@@ -20,13 +20,15 @@ import AdminUserManagement from "./Pages/admin/AdminUserManagement.jsx";
 import AdminProfile from "./Pages/admin/AdminProfile.jsx";
 import AboutUs from "./Pages/AboutUs.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
-
+import AddQuizPage from "./Pages/admin/AddQuizPage.jsx";
+import TakeQuizPage from './Pages/Course/TakeQuizPage.jsx';
+import AdminViewQuizResults from "./Pages/admin/AdminViewQuizResults.jsx";
 
 function AppRoutes() {
   const location = useLocation();
 
   // Define routes where you do NOT want the footer
-  const hideFooterRoutes = ["/dashboard", "/admin/enrollments","/courses/add","/admin/courses","/admin/users","/admin/profile"];
+  const hideFooterRoutes = ["/dashboard", "/admin/enrollments","/courses/add","/admin/courses","/admin/users","/admin/profile","/admin/addquiz","/admin/all-quiz-results"];
 
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
 
@@ -38,13 +40,17 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
          <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
-      
+        <Route path="/quizzes/:courseId" element={<PrivateRoute><TakeQuizPage /></PrivateRoute>} />
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:id/enroll" element={<EnrollCoursePage />} />
         <Route path="/courses/add" element={<PrivateRoute><AddCoursePage /></PrivateRoute>} />
         <Route path="/admin/courses" element={<PrivateRoute><AdminAllCoursesPage /></PrivateRoute>} />
         <Route path="/admin/users" element={<PrivateRoute><AdminUserManagement /></PrivateRoute>} />
         <Route path="/admin/profile" element={<PrivateRoute><AdminProfile /></PrivateRoute>} />
+        <Route path="/admin/addquiz" element={<PrivateRoute><AddQuizPage /></PrivateRoute>} />
+        <Route path="/admin/all-quiz-results" element={<PrivateRoute><AdminViewQuizResults /></PrivateRoute>} />
+
+        
         <Route
           path="/courses/:id/view"
           element={
