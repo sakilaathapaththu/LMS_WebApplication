@@ -17,15 +17,7 @@ router.post(
   ]),
   courseController.addCourse
 );
-// Get all visible courses
-// router.get("/all", async (req, res) => {
-//   try {
-//     const courses = await Course.find({ visible: true });
-//     res.json(courses);
-//   } catch (err) {
-//     res.status(500).json({ message: "Failed to fetch courses" });
-//   }
-// });
+
 
 router.get("/all", async (req, res) => {
   try {
@@ -95,29 +87,6 @@ router.get("/:courseId/access", auth, async (req, res) => {
 });
 
 
-// router.get("/my", auth, async (req, res) => {
-//   try {
-//     const userId = req.user.userId;
-
-//     const courses = await Course.find({ visible: true });
-
-//     const result = courses.map(course => {
-//       const match = course.studentsEnrolled.find(en =>
-//         en?.userId?.toString?.() === userId && en?.approved === true
-//       );
-
-//       return {
-//         ...course.toObject(),
-//         isApproved: !!match
-//       };
-//     });
-
-//     res.json(result);
-//   } catch (err) {
-//     console.error("Error in /courses/my:", err);
-//     res.status(500).json({ message: "Failed to fetch user courses" });
-//   }
-// });
 router.get("/my", auth, async (req, res) => {
   try {
     const userId = req.user.userId;

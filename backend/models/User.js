@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
   nic:       { type: String, required: true },
   username:  { type: String, required: true, unique: true },
   password:  { type: String, required: true },
-  role:      { type: String, enum: ["user", "admin"], default: "user" }
+  role:      { type: String, enum: ["user", "admin"], default: "user" },
+  currentToken: { type: String }  // ✅ Add this field
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {

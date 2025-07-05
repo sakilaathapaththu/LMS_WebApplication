@@ -52,9 +52,18 @@ const AdminSidebar = () => {
         <ListItem button onClick={() => handleNavigation("/admin/courses")}>
           <ListItemText primary="All Courses" />
         </ListItem>
+        <ListItem button onClick={() => handleNavigation("/admin/addquiz")}>
+          <ListItemText primary="Add Quiz" />
+        </ListItem>
+
+        <ListItem button onClick={() => handleNavigation("/admin/all-quiz-results")}>
+          <ListItemText primary="Quiz Results" />
+        </ListItem>
         <ListItem button onClick={() => handleNavigation("logout")}>
           <ListItemText primary="Logout" />
         </ListItem>
+        
+        
       </List>
     </Drawer>
   );

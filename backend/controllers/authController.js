@@ -37,8 +37,7 @@ exports.register = async (req, res) => {
   }
 };
 
-
-// Login
+// Login with single-device session enforcement
 exports.login = async (req, res) => {
   const { emailOrUsername, password } = req.body;
 
@@ -58,21 +57,25 @@ exports.login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    // ✅ Enforce one-device login: store token
+    user.currentToken = token;
+    await user.save();
+
     res.json({
-  token,
-  user: {
-    id: user._id,
-    fullName: `${user.firstName} ${user.lastName}`,
-    firstName:user.firstName,
-    lastName:user.lastName,
-    username: user.username,
-    email: user.email,
-    role: user.role,
-    nic:user.nic,
-    birthday:user.birthday,
-    profileImage: user.profileImage // ✅ Include this field
-  }
-});
+      token,
+      user: {
+        id: user._id,
+        fullName: `${user.firstName} ${user.lastName}`,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        nic: user.nic,
+        birthday: user.birthday,
+        profileImage: user.profileImage
+      }
+    });
 
   } catch (err) {
     res.status(500).json({ message: err.message });
