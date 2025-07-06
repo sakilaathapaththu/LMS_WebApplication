@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import HomePageNavbar from "../Components/Navbar/Homepagenavbar";
 import {
   Box,
   Container,
@@ -38,12 +39,6 @@ import {
   Add,
   Send
 } from "@mui/icons-material";
-
-const HomePageNavbar = () => (
-  <AppBar position="static" sx={{ bgcolor: 'white', boxShadow: 1 }}>
-    <Toolbar sx={{ height: 64 }} />
-  </AppBar>
-);
 
 // Enhanced scroll animation hook
 const useScrollAnimation = () => {
@@ -807,7 +802,6 @@ const AboutUs = () => {
           </AnimatedDiv>
         </Container>
       </Box>
-
       {/* Review Form Dialog */}
       <ReviewForm
         open={reviewDialogOpen}
