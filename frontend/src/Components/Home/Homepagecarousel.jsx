@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Add this import
+import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button, Typography, Box, Container, Fade, Slide, Zoom } from '@mui/material';
 import side01 from "../../Assets/images/side01.jpg";
@@ -18,7 +18,7 @@ const content = {
 
 function BackgroundSlide({ image, isLoaded }) {
     return (
-        <Fade in={isLoaded} timeout={1000}>
+        <Fade in={isLoaded} timeout={1500}>
             <Box
                 sx={{
                     position: 'absolute',
@@ -30,8 +30,12 @@ function BackgroundSlide({ image, isLoaded }) {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    transform: isLoaded ? 'scale(1)' : 'scale(1.1)',
-                    transition: 'transform 1.5s ease-out',
+                    transform: isLoaded ? 'scale(1)' : 'scale(1.05)',
+                    transition: 'transform 2s cubic-bezier(0.23, 1, 0.32, 1)',
+                    // Hardware acceleration for smoother performance
+                    willChange: 'transform, opacity',
+                    backfaceVisibility: 'hidden',
+                    perspective: '1000px',
                     '&::before': {
                         content: '""',
                         position: 'absolute',
@@ -40,7 +44,8 @@ function BackgroundSlide({ image, isLoaded }) {
                         width: '100%',
                         height: '100%',
                         background: 'linear-gradient(45deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%)',
-                        zIndex: 1
+                        zIndex: 1,
+                        transition: 'opacity 0.5s ease-in-out',
                     }
                 }}
             />
@@ -51,7 +56,7 @@ function BackgroundSlide({ image, isLoaded }) {
 export default function HomepageCarousel() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [showContent, setShowContent] = useState(false);
-    const navigate = useNavigate(); // Add this hook
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Simulate loading and trigger animations
@@ -84,7 +89,7 @@ export default function HomepageCarousel() {
                 height: { xs: '400px', sm: '500px', md: '600px' }
             }}
         >
-            {/* Background Images Carousel - Only backgrounds slide */}
+            {/* Background Images Carousel - Changed to fade transition */}
             <Carousel
                 navButtonsAlwaysVisible={false}
                 indicators={true}
@@ -99,16 +104,33 @@ export default function HomepageCarousel() {
                         color: '#1976d2'
                     }
                 }}
-                animation="slide"
-                duration={500}
-                interval={5000}
+                animation="fade"  // Changed from "slide" to "fade"
+                duration={1200}   // Increased duration for much smoother fade
+                interval={6000}   // Increased interval to let fade complete
                 sx={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    zIndex: 0
+                    zIndex: 0,
+                    // Enhanced styles for ultra-smooth fade effect
+                    '& .carousel-item': {
+                        transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important',
+                        willChange: 'opacity',
+                    },
+                    '& .carousel-item.active': {
+                        opacity: 1,
+                    },
+                    '& .carousel-item:not(.active)': {
+                        opacity: 0,
+                    },
+                    // Smooth out any flickering
+                    '& .MuiCarousel-root': {
+                        transform: 'translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        perspective: '1000px',
+                    }
                 }}
             >
                 {
@@ -198,7 +220,7 @@ export default function HomepageCarousel() {
                             <Button
                                 variant="contained"
                                 size="large"
-                                onClick={handleCTAClick} // Add click handler
+                                onClick={handleCTAClick}
                                 sx={{
                                     bgcolor: '#1976d2',
                                     color: 'white',
