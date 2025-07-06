@@ -1,10 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Add this import
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button, Typography, Box, Container, Fade, Slide, Zoom } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import side01 from "../../Assets/images/side01.jpg";
 import side02 from "../../Assets/images/side02.jpg"
 
@@ -89,9 +86,7 @@ export default function HomepageCarousel() {
         >
             {/* Background Images Carousel - Only backgrounds slide */}
             <Carousel
-                NextIcon={<ArrowForwardIosIcon />}
-                PrevIcon={<ArrowBackIosIcon />}
-                navButtonsAlwaysVisible={true}
+                navButtonsAlwaysVisible={false}
                 indicators={true}
                 indicatorIconButtonProps={{
                     style: {
@@ -102,22 +97,6 @@ export default function HomepageCarousel() {
                 activeIndicatorIconButtonProps={{
                     style: {
                         color: '#1976d2'
-                    }
-                }}
-                navButtonsProps={{
-                    style: {
-                        backgroundColor: 'rgba(255,255,255,0.2)',
-                        color: 'white',
-                        borderRadius: '50%',
-                        margin: '0 20px',
-                        padding: '12px',
-                        backdropFilter: 'blur(10px)'
-                    }
-                }}
-                navButtonsWrapperProps={{
-                    style: {
-                        top: '50%',
-                        transform: 'translateY(-50%)'
                     }
                 }}
                 animation="slide"
