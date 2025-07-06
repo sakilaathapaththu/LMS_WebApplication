@@ -1,13 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Facebook, Instagram, LinkedIn, ArrowForward, Group } from '@mui/icons-material';
 
-// Team data
+import React from 'react';
+import {
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  Box,
+  Chip,
+  Divider,
+  Button,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import { Facebook, Instagram, LinkedIn, ArrowForward } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+
+import profile01 from "../../Assets/images/profile.jpg";
+import sakila from "../../Assets/images/sakila.jpeg";
+
+// Enhanced team data with more professional information
 const teamMembers = [
   {
     name: 'Sakila Athapaththu',
     title: 'Co-Director',
     subtitle: 'Leadership & Strategy',
-    image: '/api/placeholder/300/400',
+    image: sakila,
     description: 'Experienced educational leader with expertise in curriculum development and strategic planning.',
     social: {
       facebook: 'https://facebook.com/sakilaathapaththu',
@@ -19,7 +38,7 @@ const teamMembers = [
     name: 'Thamidu Sulakshana',
     title: 'Director',
     subtitle: 'Academic Operations',
-    image: '/api/placeholder/300/400',
+    image: profile01,
     description: 'Dedicated to maintaining high academic standards and operational efficiency.',
     social: {
       facebook: 'https://facebook.com/thamidu.sulakshana',
@@ -31,7 +50,7 @@ const teamMembers = [
     name: 'Praveen Liyanage',
     title: 'Director',
     subtitle: 'Executive Leadership',
-    image: '/api/placeholder/300/400',
+    image: profile01,
     description: 'Visionary leader focused on educational excellence and organizational development.',
     social: {
       facebook: 'https://facebook.com/praveen.liyanage',
@@ -43,7 +62,7 @@ const teamMembers = [
     name: 'Thilina Sadamal',
     title: 'Director',
     subtitle: 'Innovation & Development',
-    image: '/api/placeholder/300/400',
+    image: profile01,
     description: 'Passionate about educational innovation and sustainable growth initiatives.',
     social: {
       facebook: 'https://facebook.com/thilina.sadamal',
@@ -53,159 +72,439 @@ const teamMembers = [
   },
 ];
 
-const TeamCard = ({ member, index }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, index * 150);
-
-    return () => clearTimeout(timer);
-  }, [index]);
+const ProfessionalTeamCard = ({ name, title, subtitle, image, description, social }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <div 
-      className={`transform transition-all duration-700 ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <Card
+      elevation={0}
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#ffffff',
+        border: `2px solid #e3f2fd`,
+        borderRadius: 4,
+        overflow: 'hidden',
+        position: 'relative',
+        cursor: 'pointer',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        transform: 'translateY(0) scale(1)',
+        '&:hover': {
+          transform: 'translateY(-12px) scale(1.03)',
+          boxShadow: '0 20px 40px rgba(33, 150, 243, 0.15)',
+          borderColor: '#2196f3',
+          '& .card-image': {
+            transform: 'scale(1.08)',
+          },
+          '& .card-content': {
+            transform: 'translateY(-4px)',
+          },
+          '& .social-button': {
+            transform: 'translateY(-3px) scale(1.15)',
+          },
+          '& .director-chip': {
+            transform: 'scale(1.08)',
+            backgroundColor: '#1976d2',
+            boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)',
+          },
+        },
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          background: 'linear-gradient(90deg, #42a5f5, #2196f3, #1976d2)',
+          transform: 'scaleX(0)',
+          transformOrigin: 'left',
+          transition: 'transform 0.4s ease-in-out',
+        },
+        '&:hover:before': {
+          transform: 'scaleX(1)',
+        },
+      }}
     >
-      <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-blue-50">
-        {/* Image Section */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 h-64 sm:h-72">
-          <img 
-            src={member.image} 
-            alt={member.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      {/* Image Section */}
+      <Box
+        sx={{
+          position: 'relative',
+          height: 280,
+          overflow: 'hidden',
+          background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
+        }}
+      >
+        <Box
+          component="img"
+          alt={`${name} - ${title}`}
+          src={image}
+          className="card-image"
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.4s ease-in-out',
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to top, rgba(33, 150, 243, 0.1) 0%, transparent 50%)',
+          }}
+        />
+      </Box>
+
+      {/* Content Section */}
+      <CardContent
+        className="card-content"
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          p: 3,
+          backgroundColor: '#ffffff',
+          transition: 'transform 0.3s ease-in-out',
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="h3"
+          sx={{
+            fontWeight: 700,
+            color: '#1a1a1a',
+            mb: 1.5,
+            transition: 'color 0.3s ease-in-out',
+          }}
+        >
+          {name}
+        </Typography>
+
+        <Box sx={{ mb: 1.5 }}>
+          <Chip
+            label={title}
+            size="small"
+            className="director-chip"
+            sx={{
+              fontWeight: 600,
+              fontSize: '0.75rem',
+              backgroundColor: '#2196f3',
+              color: '#ffffff',
+              border: `1px solid #2196f3`,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              '&:hover': {
+                backgroundColor: '#1976d2',
+              },
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          {/* Floating Icon */}
-          <div className={`absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transform transition-all duration-500 ${
-            isHovered ? 'scale-110 rotate-12' : 'scale-100 rotate-0'
-          }`}>
-            <Group className="w-6 h-6 text-blue-600" />
-          </div>
-        </div>
+        </Box>
 
-        {/* Content Section */}
-        <div className="p-6 space-y-4">
-          {/* Name and Title */}
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold text-gray-800 transition-colors duration-300 group-hover:text-blue-600">
-              {member.name}
-            </h3>
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
-                {member.title}
-              </span>
-            </div>
-            <p className="text-blue-600 font-medium text-sm">{member.subtitle}</p>
-          </div>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            fontWeight: 600,
+            color: '#1976d2',
+            mb: 1.5,
+            transition: 'all 0.3s ease-in-out',
+            position: 'relative',
+            '&:after': {
+              content: '""',
+              position: 'absolute',
+              bottom: -4,
+              left: 0,
+              width: 0,
+              height: '2px',
+              backgroundColor: '#2196f3',
+              transition: 'width 0.3s ease-in-out',
+            },
+          }}
+        >
+          {subtitle}
+        </Typography>
 
-          {/* Description */}
-          <p className="text-gray-600 text-sm leading-relaxed">
-            {member.description}
-          </p>
+        <Typography
+          variant="body2"
+          sx={{
+            color: '#666666',
+            lineHeight: 1.7,
+            mb: 2.5,
+            flexGrow: 1,
+          }}
+        >
+          {description}
+        </Typography>
 
-          {/* Social Links */}
-          <div className="flex gap-3 pt-2">
-            <a 
-              href={member.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group/social"
-            >
-              <Facebook className="w-5 h-5 text-blue-600 group-hover/social:text-blue-700" />
-            </a>
-            <a 
-              href={member.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group/social"
-            >
-              <LinkedIn className="w-5 h-5 text-blue-600 group-hover/social:text-blue-700" />
-            </a>
-            <a 
-              href={member.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group/social"
-            >
-              <Instagram className="w-5 h-5 text-blue-600 group-hover/social:text-blue-700" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Divider 
+          sx={{ 
+            mb: 2.5,
+            background: 'linear-gradient(90deg, #bbdefb, #2196f3, #bbdefb)',
+            height: '1px',
+            transform: 'scaleX(0)',
+            transformOrigin: 'left',
+            transition: 'transform 0.4s ease-in-out 0.1s',
+          }} 
+        />
+
+        {/* Social Media Links */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 1.5,
+          }}
+        >
+          <IconButton
+            aria-label={`${name} Facebook profile`}
+            component="a"
+            href={social.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            className="social-button"
+            sx={{
+              color: '#666666',
+              backgroundColor: '#ffffff',
+              border: `2px solid #e3f2fd`,
+              borderRadius: 2,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': {
+                color: '#1877F2',
+                backgroundColor: '#e3f2fd',
+                borderColor: '#1877F2',
+                boxShadow: '0 6px 16px rgba(24, 119, 242, 0.2)',
+              },
+            }}
+          >
+            <Facebook fontSize="small" />
+          </IconButton>
+
+          <IconButton
+            aria-label={`${name} LinkedIn profile`}
+            component="a"
+            href={social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            className="social-button"
+            sx={{
+              color: '#666666',
+              backgroundColor: '#ffffff',
+              border: `2px solid #e3f2fd`,
+              borderRadius: 2,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': {
+                color: '#0A66C2',
+                backgroundColor: '#e3f2fd',
+                borderColor: '#0A66C2',
+                boxShadow: '0 6px 16px rgba(10, 102, 194, 0.2)',
+              },
+            }}
+          >
+            <LinkedIn fontSize="small" />
+          </IconButton>
+
+          <IconButton
+            aria-label={`${name} Instagram profile`}
+            component="a"
+            href={social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            className="social-button"
+            sx={{
+              color: '#666666',
+              backgroundColor: '#ffffff',
+              border: `2px solid #e3f2fd`,
+              borderRadius: 2,
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': {
+                color: '#E4405F',
+                backgroundColor: '#e3f2fd',
+                borderColor: '#E4405F',
+                boxShadow: '0 6px 16px rgba(228, 64, 95, 0.2)',
+              },
+            }}
+          >
+            <Instagram fontSize="small" />
+          </IconButton>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 
-const MinimalTeam = () => {
-  const [headerVisible, setHeaderVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setHeaderVisible(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+const ExpertTeam = () => {
+  const theme = useTheme();
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-blue-100/40 py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className={`text-center mb-16 transform transition-all duration-1000 ${
-          headerVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-        }`}>
-          <div className="relative inline-block mb-6">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              Meet Our Expert Team
-            </h2>
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
-          </div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, md: 12 },
+        background: 'linear-gradient(135deg, #ffffff 0%, #f5f9ff 50%, #e3f2fd 100%)',
+        minHeight: '100vh',
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* Header Section */}
+        <Box
+          sx={{
+            textAlign: 'center',
+            mb: { xs: 6, md: 8 },
+          }}
+        >
+          <Typography
+            variant="h3"
+            component="h2"
+            gutterBottom
+            sx={{
+              fontWeight: 800,
+              background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textFillColor: 'transparent',
+              mb: 3,
+              fontSize: { xs: '2.5rem', md: '3rem' },
+            }}
+          >
+            Meet Our Expert Team
+          </Typography>
+          
+          <Typography
+            variant="h6"
+            sx={{
+              maxWidth: 700,
+              mx: 'auto',
+              lineHeight: 1.8,
+              fontWeight: 400,
+              color: '#555555',
+              fontSize: { xs: '1.1rem', md: '1.25rem' },
+            }}
+          >
             Our dedicated leadership team brings together years of experience in education, 
             innovation, and strategic development to drive excellence in everything we do.
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <Grid container spacing={{ xs: 4, md: 5 }}>
           {teamMembers.map((member, index) => (
-            <TeamCard key={index} member={member} index={index} />
+            <Grid 
+              item 
+              xs={12} 
+              sm={6} 
+              lg={3} 
+              key={index}
+              sx={{
+                opacity: 0,
+                transform: 'translateY(30px)',
+                animation: `fadeInUp 0.8s ease-out ${index * 0.15}s forwards`,
+                '@keyframes fadeInUp': {
+                  '0%': {
+                    opacity: 0,
+                    transform: 'translateY(30px)',
+                  },
+                  '100%': {
+                    opacity: 1,
+                    transform: 'translateY(0)',
+                  },
+                },
+              }}
+            >
+              <ProfessionalTeamCard {...member} />
+            </Grid>
           ))}
-        </div>
+        </Grid>
 
         {/* Call to Action */}
-        <div className="text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50 max-w-2xl mx-auto">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Group className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                Ready to Work With Our Expert Team?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Connect with us to learn more about our educational programs 
-                and how we can help you achieve your goals.
-              </p>
-            </div>
+        <Box
+          sx={{
+            textAlign: 'center',
+            mt: { xs: 8, md: 10 },
+          }}
+        >
+          <Card
+            elevation={0}
+            sx={{
+              maxWidth: 600,
+              mx: 'auto',
+              p: 4,
+              backgroundColor: '#ffffff',
+              border: `2px solid #e3f2fd`,
+              borderRadius: 4,
+              boxShadow: '0 8px 32px rgba(33, 150, 243, 0.1)',
+            }}
+          >
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 700,
+                color: '#1976d2',
+                mb: 2,
+              }}
+            >
+              Ready to Work With Our Expert Team?
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: '#666666',
+                lineHeight: 1.7,
+                fontStyle: 'italic',
+                mb: 3,
+              }}
+            >
+              Connect with us on social media or reach out to learn more about our educational programs 
+              and how we can help you achieve your goals.
+            </Typography>
             
-            <button className="group bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto">
+            {/* Contact Us Button */}
+            <Button
+              component={Link}
+              to="/contactus"
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForward />}
+              sx={{
+                backgroundColor: '#2196f3',
+                color: '#ffffff',
+                fontWeight: 600,
+                fontSize: '1rem',
+                py: 1.5,
+                px: 4,
+                borderRadius: 3,
+                textTransform: 'none',
+                boxShadow: '0 8px 24px rgba(33, 150, 243, 0.3)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  backgroundColor: '#1976d2',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 32px rgba(33, 150, 243, 0.4)',
+                  '& .MuiSvgIcon-root': {
+                    transform: 'translateX(4px)',
+                  },
+                },
+                '& .MuiSvgIcon-root': {
+                  transition: 'transform 0.3s ease-in-out',
+                },
+              }}
+            >
               Contact Us
-              <ArrowForward className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Button>
+          </Card>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
-export default MinimalTeam;
+export default ExpertTeam;
