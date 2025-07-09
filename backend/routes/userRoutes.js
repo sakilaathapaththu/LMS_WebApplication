@@ -121,6 +121,14 @@ router.put("/:userId/enrollments/:courseId", async (req, res) => {
   }
 });
 
+router.get("/users/count", async (req, res) => {
+  try {
+    const count = await User.countDocuments({ role: "user" });
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to count users" });
+  }
+});
 
 
 module.exports = router;

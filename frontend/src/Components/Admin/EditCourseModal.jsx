@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   Modal, Box, Typography, TextField, Button, FormControlLabel, Checkbox
@@ -5,14 +6,28 @@ import {
 import API from "../../Utils/api";
 
 const EditCourseModal = ({ open, onClose, course, onUpdated }) => {
-  const [form, setForm] = useState({ ...course });
+  const [form, setForm] = useState({
+    courseId: "",
+    title: "",
+    description: "",
+    conductorName: "",
+    category: "",
+    level: "",
+    duration: "",
+    enrollmentKey: "",
+    videoClips: "",
+    prerequisites: "",
+    visible: false
+  });
 
+  // ✅ Populate form when course changes
   useEffect(() => {
     if (course) {
       setForm({
         ...course,
-        videoClips: course.videoClips?.join(", "),
-        prerequisites: course.prerequisites?.join(", ")
+        videoClips: course.videoClips?.join(", ") || "",
+        prerequisites: course.prerequisites?.map(p => p._id || p)?.join(", ") || "",
+        visible: course.visible || false,
       });
     }
   }, [course]);
@@ -35,6 +50,7 @@ const EditCourseModal = ({ open, onClose, course, onUpdated }) => {
       onUpdated();
       onClose();
     } catch (err) {
+      console.error(err);
       alert("❌ Failed to update course");
     }
   };
