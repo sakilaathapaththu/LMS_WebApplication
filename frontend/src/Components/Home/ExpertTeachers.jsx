@@ -24,7 +24,7 @@ import sakila from "../../Assets/images/sakila.jpeg";
 const teamMembers = [
   {
     name: 'Sakila Athapaththu',
-    title: 'Co-Director',
+    title: 'Founder & CEO',
     subtitle: 'Leadership & Strategy',
     image: sakila,
     description: 'Experienced educational leader with expertise in curriculum development and strategic planning.',
@@ -32,6 +32,18 @@ const teamMembers = [
       facebook: 'https://facebook.com/sakilaathapaththu',
       instagram: 'https://instagram.com/sakilaathapaththu',
       linkedin: 'https://linkedin.com/in/sakila-athapaththu-412647215',
+    }
+  },
+    {
+    name: 'Praveen Liyanage',
+    title: 'Director',
+    subtitle: 'Executive Leadership',
+    image: profile01,
+    description: 'Visionary leader focused on educational excellence and organizational development.',
+    social: {
+      facebook: 'https://facebook.com/praveen.liyanage',
+      instagram: 'https://instagram.com/praveen.liyanage',
+      linkedin: 'https://linkedin.com/in/praveen-liyanage',
     }
   },
   {
@@ -44,18 +56,6 @@ const teamMembers = [
       facebook: 'https://facebook.com/thamidu.sulakshana',
       instagram: 'https://instagram.com/thamidu.sulakshana',
       linkedin: 'https://linkedin.com/in/thamidu-sulakshana',
-    }
-  },
-  {
-    name: 'Praveen Liyanage',
-    title: 'Director',
-    subtitle: 'Executive Leadership',
-    image: profile01,
-    description: 'Visionary leader focused on educational excellence and organizational development.',
-    social: {
-      facebook: 'https://facebook.com/praveen.liyanage',
-      instagram: 'https://instagram.com/praveen.liyanage',
-      linkedin: 'https://linkedin.com/in/praveen-liyanage',
     }
   },
   {
