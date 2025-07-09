@@ -96,4 +96,28 @@ router.get("/pending", auth, async (req, res) => {
 });
 
 
+router.get("/enrollments/counted", async (req, res) => {
+  try {
+    const pendingCount = await EnrollmentRequest.countDocuments();
+
+    // Count total enrolled students from all courses
+    const courses = await Course.find({}, "studentsEnrolled");
+    let totalEnrolled = 0;
+
+    for (const course of courses) {
+      totalEnrolled += course.studentsEnrolled.length;
+    }
+
+    res.json({
+      pendingCount,
+      total: totalEnrolled
+    });
+  } catch (err) {
+    console.error("Failed to count enrollments:", err);
+    res.status(500).json({ message: "Failed to count enrollments" });
+  }
+});
+
+
+
 module.exports = router;

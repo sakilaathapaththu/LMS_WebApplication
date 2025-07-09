@@ -24,7 +24,7 @@ const [editOpen, setEditOpen] = useState(false);
   }, []);
 
   const fetchCourses = () => {
-    API.get("/courses/all")
+    API.get("/courses/admin")
       .then((res) => setCourses(res.data))
       .catch((err) => alert("Failed to load courses"));
   };

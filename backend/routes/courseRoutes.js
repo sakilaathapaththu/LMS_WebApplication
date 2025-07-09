@@ -187,6 +187,19 @@ router.get("/:courseId/video/:index", async (req, res) => {
   }
 });
 
+router.get("/admin", auth, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const courses = await Course.find(); // no `visible: true` filter for admins
+    const safeCourses = courses.map(course => sanitizeCourse(course, { includeSensitive: true }));
+    res.json(safeCourses);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch courses for admin" });
+  }
+});
 
 
 
