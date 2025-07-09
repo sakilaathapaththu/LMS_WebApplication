@@ -9,7 +9,8 @@ module.exports = function sanitizeUser(user) {
     email: user.email,
     role: user.role,
     profileImage: user.profileImage,
-    birthday: user.birthday
-    // ❌ Do not return: password, nic, createdAt, updatedAt, __v, etc.
+    birthday: user.birthday,
+    nic: user.nic // ✅ Add this line
+   
   };
 };

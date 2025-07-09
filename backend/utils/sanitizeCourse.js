@@ -1,4 +1,5 @@
 // utils/sanitizeCourse.js
+
 module.exports = function sanitizeCourse(course, options = {}) {
   const base = {
     _id: course._id,
@@ -10,14 +11,19 @@ module.exports = function sanitizeCourse(course, options = {}) {
     conductorName: course.conductorName,
     duration: course.duration,
     level: course.level,
-    createdAt: course.createdAt
+    visible: course.visible,
+    createdAt: course.createdAt,
   };
 
-  // Optional flag to include `isApproved`
   if (options.includeIsApproved !== undefined) {
     base.isApproved = options.includeIsApproved;
   }
 
+  if (options.includeSensitive) {
+    base.enrollmentKey = course.enrollmentKey;
+    base.videoClips = course.videoClips;
+    base.prerequisites = course.prerequisites;
+  }
+
   return base;
 };
-
