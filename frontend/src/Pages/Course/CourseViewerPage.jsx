@@ -526,14 +526,12 @@ const CourseViewerPage = () => {
                       onClick={() => handleVideoClick(idx)}
                     >
                       <Box sx={{ position: "relative" }}>
-                        <CardMedia
+                        <Box
                           sx={{
                             height: 160,
-                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
                             position: "relative",
+                            overflow: "hidden",
+                            borderRadius: "8px 8px 0 0",
                             "&::before": {
                               content: '""',
                               position: "absolute",
@@ -541,14 +539,36 @@ const CourseViewerPage = () => {
                               left: 0,
                               right: 0,
                               bottom: 0,
-                              background: "rgba(0,0,0,0.3)",
-                              zIndex: 1,
+                              background: "rgba(0,0,0,0.4)",
+                              zIndex: 2,
+                              transition: "background 0.3s ease",
+                            },
+                            "&:hover::before": {
+                              background: "rgba(0,0,0,0.6)",
                             }
                           }}
                         >
+                          <iframe
+                            src={`${API_BASE_URL}/courses/${id}/video/${idx}?token=${token}`}
+                            title={`Lecture ${idx + 1} Preview`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            sandbox="allow-scripts allow-same-origin"
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              width: "100%",
+                              height: "100%",
+                              pointerEvents: "none", // Prevent interaction with preview
+                            }}
+                          />
                           <Box sx={{ 
-                            position: "relative", 
-                            zIndex: 2,
+                            position: "absolute", 
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            zIndex: 3,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
@@ -558,16 +578,22 @@ const CourseViewerPage = () => {
                               width: 60,
                               height: 60,
                               borderRadius: "50%",
-                              background: "rgba(255,255,255,0.9)",
+                              background: "rgba(255,255,255,0.95)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
                               backdropFilter: "blur(10px)",
-                              border: "2px solid rgba(255,255,255,0.5)",
+                              border: "3px solid rgba(255,255,255,0.8)",
+                              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                              "&:hover": {
+                                transform: "scale(1.1)",
+                                boxShadow: "0 6px 30px rgba(0,0,0,0.4)",
+                              }
                             }}>
                               <PlayArrow sx={{ 
                                 color: "#1565c0", 
-                                fontSize: "2rem",
+                                fontSize: "2.2rem",
                                 ml: 0.5
                               }} />
                             </Box>
@@ -575,14 +601,17 @@ const CourseViewerPage = () => {
                               variant="caption" 
                               sx={{ 
                                 color: "white", 
-                                fontWeight: 600,
-                                textShadow: "0 2px 4px rgba(0,0,0,0.5)"
+                                fontWeight: 700,
+                                textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                                fontSize: "0.75rem",
+                                letterSpacing: "0.5px",
+                                textTransform: "uppercase"
                               }}
                             >
                               Click to Play
                             </Typography>
                           </Box>
-                        </CardMedia>
+                        </Box>
                       </Box>
                       <CardContent sx={{ p: 2 }}>
                         <Typography
