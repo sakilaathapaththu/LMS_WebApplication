@@ -16,6 +16,11 @@ import {
   Fade,
   Zoom,
   Slide,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  CardMedia,
 } from "@mui/material";
 import {
   PlayCircleOutline,
@@ -24,15 +29,19 @@ import {
   School,
   Star,
   TrendingUp,
+  Close,
+  PlayArrow,
 } from "@mui/icons-material";
 import HomePageNavbar from "../../Components/Navbar/Homepagenavbar";
 
 const CourseViewerPage = () => {
   const { id } = useParams();
-
-  const navigate = useNavigate(); // for programmatic routing
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [animationTrigger, setAnimationTrigger] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [openVideoDialog, setOpenVideoDialog] = useState(false);
+  
   const token = localStorage.getItem("token")?.startsWith("Bearer ")
     ? localStorage.getItem("token").split(" ")[1]
     : localStorage.getItem("token");
@@ -45,6 +54,16 @@ const CourseViewerPage = () => {
       })
       .catch((err) => alert("Access denied or not approved yet"));
   }, [id]);
+
+  const handleVideoClick = (videoIndex) => {
+    setSelectedVideo(videoIndex);
+    setOpenVideoDialog(true);
+  };
+
+  const handleCloseVideo = () => {
+    setOpenVideoDialog(false);
+    setSelectedVideo(null);
+  };
 
   if (!course) {
     return (
@@ -483,87 +502,141 @@ const CourseViewerPage = () => {
               Course Content
             </Typography>
 
-            <Grid container spacing={4}>
+            {/* Video Grid */}
+            <Grid container spacing={3}>
               {Array.from({ length: course.videoCount || 0 }).map((_, idx) => (
-                <Grid item xs={12} key={idx}>
-                  <Zoom in={animationTrigger} timeout={1200 + idx * 200}>
-                    <Card sx={{ 
-                      borderRadius: 4, 
-                      overflow: "hidden",
-                      boxShadow: "0 12px 48px rgba(0,0,0,0.08)",
-                      border: "1px solid rgba(21, 101, 192, 0.08)",
-                      background: "rgba(255,255,255,0.9)",
-                      backdropFilter: "blur(10px)",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      "&:hover": {
-                        transform: "translateY(-8px)",
-                        boxShadow: "0 20px 64px rgba(0,0,0,0.12)",
-                        border: "1px solid rgba(21, 101, 192, 0.15)",
-                      }
-                    }}>
-                      <CardContent sx={{ p: 0 }}>
-                        <Box sx={{ 
-                          p: 3, 
-                          background: "linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%)",
-                          borderBottom: "1px solid rgba(21, 101, 192, 0.1)",
-                        }}>
-                          <Typography
-                            variant="h6"
-                            sx={{
-                              fontWeight: 700,
+                <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+                  <Zoom in={animationTrigger} timeout={1200 + idx * 100}>
+                    <Card 
+                      sx={{ 
+                        borderRadius: 4, 
+                        overflow: "hidden",
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                        border: "1px solid rgba(21, 101, 192, 0.08)",
+                        background: "rgba(255,255,255,0.9)",
+                        backdropFilter: "blur(10px)",
+                        cursor: "pointer",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        "&:hover": {
+                          transform: "translateY(-8px)",
+                          boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
+                          border: "1px solid rgba(21, 101, 192, 0.15)",
+                        }
+                      }}
+                      onClick={() => handleVideoClick(idx)}
+                    >
+                      <Box sx={{ position: "relative" }}>
+                        <Box
+                          sx={{
+                            height: 160,
+                            position: "relative",
+                            overflow: "hidden",
+                            borderRadius: "8px 8px 0 0",
+                            "&::before": {
+                              content: '""',
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              background: "rgba(0,0,0,0.4)",
+                              zIndex: 2,
+                              transition: "background 0.3s ease",
+                            },
+                            "&:hover::before": {
+                              background: "rgba(0,0,0,0.6)",
+                            }
+                          }}
+                        >
+                          <iframe
+                            src={`${API_BASE_URL}/courses/${id}/video/${idx}?token=${token}`}
+                            title={`Lecture ${idx + 1} Preview`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            sandbox="allow-scripts allow-same-origin"
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              width: "100%",
+                              height: "100%",
+                              pointerEvents: "none", // Prevent interaction with preview
+                            }}
+                          />
+                          <Box sx={{ 
+                            position: "absolute", 
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            zIndex: 3,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: 1,
+                          }}>
+                            <Box sx={{
+                              width: 60,
+                              height: 60,
+                              borderRadius: "50%",
+                              background: "rgba(255,255,255,0.95)",
                               display: "flex",
                               alignItems: "center",
-                              gap: 2,
-                              color: "#1565c0",
-                              fontSize: "1.3rem",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                p: 1,
-                                borderRadius: 2,
-                                background: "linear-gradient(135deg, #1565c0 0%, #1976d2 100%)",
-                                color: "white",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                minWidth: 40,
-                                height: 40,
+                              justifyContent: "center",
+                              backdropFilter: "blur(10px)",
+                              border: "3px solid rgba(255,255,255,0.8)",
+                              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                              "&:hover": {
+                                transform: "scale(1.1)",
+                                boxShadow: "0 6px 30px rgba(0,0,0,0.4)",
+                              }
+                            }}>
+                              <PlayArrow sx={{ 
+                                color: "#1565c0", 
+                                fontSize: "2.2rem",
+                                ml: 0.5
+                              }} />
+                            </Box>
+                            <Typography 
+                              variant="caption" 
+                              sx={{ 
+                                color: "white", 
+                                fontWeight: 700,
+                                textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+                                fontSize: "0.75rem",
+                                letterSpacing: "0.5px",
+                                textTransform: "uppercase"
                               }}
                             >
-                              <PlayCircleOutline />
-                            </Box>
-                            Lecture {idx + 1}
-                          </Typography>
-                        </Box>
-                        <Box sx={{ p: 3 }}>
-                          <Box
-                            sx={{
-                              position: "relative",
-                              width: "100%",
-                              paddingBottom: "56.25%",
-                              borderRadius: 3,
-                              overflow: "hidden",
-                              boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-                            }}
-                          >
-                            <iframe
-                              src={`${API_BASE_URL}/courses/${id}/video/${idx}?token=${token}`}
-                              title={`Lecture ${idx + 1}`}
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              sandbox="allow-scripts allow-same-origin"
-                              style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "100%",
-                              }}
-                            ></iframe>
+                              Click to Play
+                            </Typography>
                           </Box>
                         </Box>
+                      </Box>
+                      <CardContent sx={{ p: 2 }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: 700,
+                            color: "#1565c0",
+                            fontSize: "1.1rem",
+                            mb: 1,
+                          }}
+                        >
+                          Lecture {idx + 1}
+                        </Typography>
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            color: "text.secondary",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                          }}
+                        >
+                          <PlayCircleOutline sx={{ fontSize: "1rem" }} />
+                          Video Content
+                        </Typography>
                       </CardContent>
                     </Card>
                   </Zoom>
@@ -573,6 +646,77 @@ const CourseViewerPage = () => {
           </Box>
         </Slide>
       </Container>
+
+      {/* Video Dialog */}
+      <Dialog
+        open={openVideoDialog}
+        onClose={handleCloseVideo}
+        maxWidth="lg"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 4,
+            overflow: "hidden",
+            bgcolor: "transparent",
+          }
+        }}
+      >
+        <DialogTitle
+          sx={{
+            m: 0,
+            p: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
+            color: "white",
+            fontWeight: 700,
+          }}
+        >
+          <Typography variant="h6" component="div">
+            Lecture {selectedVideo !== null ? selectedVideo + 1 : ""}
+          </Typography>
+          <IconButton
+            onClick={handleCloseVideo}
+            sx={{
+              color: "white",
+              "&:hover": {
+                bgcolor: "rgba(255,255,255,0.1)",
+              }
+            }}
+          >
+            <Close />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ p: 0, bgcolor: "#000" }}>
+          {selectedVideo !== null && (
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                paddingBottom: "56.25%",
+                height: 0,
+              }}
+            >
+              <iframe
+                src={`${API_BASE_URL}/courses/${id}/video/${selectedVideo}?token=${token}`}
+                title={`Lecture ${selectedVideo + 1}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                sandbox="allow-scripts allow-same-origin"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </Box>
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
