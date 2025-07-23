@@ -151,9 +151,8 @@ const FeaturesSection = () => {
 
       <style jsx>{`
         .features-container {
-          min-height: 100vh;
           background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
-          padding: 4rem 2rem;
+          padding: 3rem 2rem;
           position: relative;
           overflow: hidden;
         }
@@ -177,6 +176,7 @@ const FeaturesSection = () => {
           right: 0;
           bottom: 0;
           z-index: 1;
+          pointer-events: none;
         }
 
         .shape {
@@ -190,7 +190,7 @@ const FeaturesSection = () => {
           width: 80px;
           height: 80px;
           background: linear-gradient(45deg, #2563eb, #3b82f6);
-          top: 20%;
+          top: 15%;
           left: 10%;
           animation-delay: 0s;
         }
@@ -199,7 +199,7 @@ const FeaturesSection = () => {
           width: 60px;
           height: 60px;
           background: linear-gradient(45deg, #1d4ed8, #60a5fa);
-          top: 70%;
+          top: 60%;
           right: 15%;
           animation-delay: 3s;
         }
@@ -208,7 +208,7 @@ const FeaturesSection = () => {
           width: 40px;
           height: 40px;
           background: linear-gradient(45deg, #1e40af, #93c5fd);
-          bottom: 30%;
+          bottom: 40%;
           left: 20%;
           animation-delay: 6s;
         }
@@ -227,7 +227,7 @@ const FeaturesSection = () => {
 
         .header-section {
           text-align: center;
-          margin-bottom: 3rem;
+          margin-bottom: 2.5rem;
           opacity: 0;
           transform: translateY(20px);
           transition: all 0.6s ease;
@@ -239,10 +239,10 @@ const FeaturesSection = () => {
         }
 
         .main-title {
-          font-size: 2.5rem;
+          font-size: 2.2rem;
           font-weight: 800;
           color: #1e40af;
-          margin-bottom: 1rem;
+          margin-bottom: 0.8rem;
           background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -340,11 +340,10 @@ const FeaturesSection = () => {
         @media (max-width: 768px) {
           .features-container {
             padding: 2rem 1rem;
-            min-height: auto;
           }
           
           .main-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
           }
           
           .subtitle {
@@ -372,6 +371,10 @@ const FeaturesSection = () => {
           .feature-description {
             font-size: 0.85rem;
           }
+
+          .header-section {
+            margin-bottom: 1.5rem;
+          }
         }
 
         @media (max-width: 480px) {
@@ -380,7 +383,7 @@ const FeaturesSection = () => {
           }
           
           .main-title {
-            font-size: 1.75rem;
+            font-size: 1.6rem;
           }
           
           .subtitle {
@@ -392,7 +395,7 @@ const FeaturesSection = () => {
           }
 
           .header-section {
-            margin-bottom: 2rem;
+            margin-bottom: 1.25rem;
           }
         }
 
@@ -400,6 +403,10 @@ const FeaturesSection = () => {
         @media (min-width: 769px) and (max-width: 1024px) {
           .features-grid {
             grid-template-columns: repeat(2, 1fr);
+          }
+
+          .features-container {
+            padding: 2.5rem 1.5rem;
           }
         }
 
