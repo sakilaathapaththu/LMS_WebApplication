@@ -24,17 +24,20 @@
 // const upload = multer({ storage });
 
 // module.exports = upload;
-// upload.js
+
+
+
+// middlewares/upload.js
 const multer = require("multer");
 const { put } = require("@vercel/blob");
 
-// Use in-memory storage (Vercel FS is read-only)
+// Use memory storage (Vercel FS is read-only)
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB (tweak if needed)
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
 });
 
-// Helper: push a single file buffer to Vercel Blob and return public URL
+// Helper: upload one file buffer to Vercel Blob → returns public URL
 async function uploadToVercelBlob(file, folder = "uploads") {
   if (!file) return null;
 
@@ -44,10 +47,14 @@ async function uploadToVercelBlob(file, folder = "uploads") {
   const { url } = await put(key, file.buffer, {
     access: "public",
     contentType: file.mimetype,
-    token: process.env.BLOB_READ_WRITE_TOKEN, // must be set on Vercel
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   });
 
   return url; // public HTTPS URL
 }
 
-module.exports = { upload, uploadToVercelBlob };
+// ✅ Keep old default export for routes that do: require("../middlewares/upload")
+module.exports = upload;
+// ✅ Also expose the helper as a property so you can do:
+// const { uploadToVercelBlob } = require("../middlewares/upload");
+module.exports.uploadToVercelBlob = uploadToVercelBlob;
