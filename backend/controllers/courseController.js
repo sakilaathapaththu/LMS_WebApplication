@@ -44,7 +44,7 @@
 //   }
 // };
 const Course = require("../models/Course");
-const { uploadToVercelBlob } = require("../middleware/upload");
+const { uploadToVercelBlob } = require("../middlewares/upload");
 
 // Add Course (cover image + multiple attachments to Vercel Blob)
 exports.addCourse = async (req, res) => {
