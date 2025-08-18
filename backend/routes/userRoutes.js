@@ -18,6 +18,7 @@ router.put("/me", auth, upload.single("profileImage"), async (req, res) => {
     //   updateData.profileImage = `uploads/${req.file.filename}`;
     // }
     if (req.file) {
+      const { uploadToVercelBlob } = require("../middlewares/upload");
    updateData.profileImage = await uploadToVercelBlob(req.file, "profile-images");
  }
 
