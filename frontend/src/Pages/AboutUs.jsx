@@ -40,6 +40,7 @@ import {
   Send
 } from "@mui/icons-material";
 
+
 // Enhanced scroll animation hook
 const useScrollAnimation = () => {
   const [visibleElements, setVisibleElements] = useState(new Set());
