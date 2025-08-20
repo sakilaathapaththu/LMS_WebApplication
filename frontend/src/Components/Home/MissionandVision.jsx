@@ -20,8 +20,12 @@ import {
   EmojiEvents,
   MenuBook
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import missionImg from '../../Assets/images/mission.jpg';
+import visionImg from '../../Assets/images/vision.jpg';
 
 const MissionandVision = () => {
+  const navigate = useNavigate();
   const [visibleSections, setVisibleSections] = useState({
     header: false,
     mission: false,
@@ -41,6 +45,11 @@ const MissionandVision = () => {
     values: useRef(null),
     cta: useRef(null)
   };
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -103,132 +112,22 @@ const MissionandVision = () => {
     );
   };
 
-  // Student Image Component
-  const StudentImage = ({ variant = "studying" }) => (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: { xs: 300, sm: 400, md: 450 },
-        borderRadius: { xs: 3, sm: 4 },
-        overflow: 'hidden',
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-        transition: 'transform 0.3s ease',
-        '&:hover': {
-          transform: 'scale(1.02) translateY(-8px)'
-        }
-      }}
-    >
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          background: variant === "studying" 
-            ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-            : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative'
-        }}
-      >
-        {/* Decorative Elements */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 20,
-            right: 20,
-            width: 60,
-            height: 60,
-            borderRadius: '50%',
-            bgcolor: 'rgba(255, 255, 255, 0.2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <MenuBook sx={{ color: 'white', fontSize: 24 }} />
-        </Box>
-        
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 20,
-            left: 20,
-            width: 40,
-            height: 40,
-            borderRadius: '50%',
-            bgcolor: 'rgba(255, 255, 255, 0.15)'
-          }}
-        />
+  // Updated navigation handlers with scroll to top
+  const handleMissionClick = () => {
+    navigate('/our-mission');
+    // Small delay to ensure navigation completes before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
-        {/* Central Content */}
-        <Box sx={{ textAlign: 'center', color: 'white', p: 3 }}>
-          <Box
-            sx={{
-              width: 120,
-              height: 120,
-              borderRadius: '50%',
-              bgcolor: 'rgba(255, 255, 255, 0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2,
-              border: '3px solid rgba(255, 255, 255, 0.3)'
-            }}
-          >
-            <Box
-              sx={{
-                width: 80,
-                height: 80,
-                borderRadius: '50%',
-                bgcolor: 'rgba(255, 255, 255, 0.9)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <Box
-                sx={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: '50%',
-                  bgcolor: variant === "studying" ? '#667eea' : '#f5576c'
-                }}
-              />
-            </Box>
-          </Box>
-          <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-            {variant === "studying" ? "Focused Learning" : "Future Vision"}
-          </Typography>
-          <Typography variant="body2" sx={{ opacity: 0.9 }}>
-            {variant === "studying" 
-              ? "Students engaged in deep learning" 
-              : "Tomorrow's leaders in the making"}
-          </Typography>
-        </Box>
-
-        {/* Animated Dots */}
-        {[...Array(8)].map((_, i) => (
-          <Box
-            key={i}
-            sx={{
-              position: 'absolute',
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              bgcolor: 'rgba(255, 255, 255, 0.4)',
-              top: `${20 + (i * 10)}%`,
-              left: `${10 + (i % 2 === 0 ? 0 : 80)}%`,
-              animation: `float ${2 + i * 0.2}s ease-in-out infinite`,
-              animationDelay: `${i * 0.2}s`
-            }}
-          />
-        ))}
-      </Box>
-    </Box>
-  );
+  const handleVisionClick = () => {
+    navigate('/aboutus');
+    // Small delay to ensure navigation completes before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
   return (
     <Box
@@ -363,7 +262,41 @@ const MissionandVision = () => {
             {/* Mission Image - Left */}
             <Grid item xs={12} lg={6} order={{ xs: 2, lg: 1 }}>
               <AnimatedBox isVisible={visibleSections.mission} direction="left" delay={0}>
-                <StudentImage variant="studying" />
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    height: { xs: 300, sm: 400, md: 450 },
+                    borderRadius: { xs: 3, sm: 4 },
+                    overflow: 'hidden',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.02) translateY(-8px)'
+                    }
+                  }}
+                >
+                  <img
+                    src={missionImg}
+                    alt="Our Mission - Empowering Education"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: 'inherit'
+                    }}
+                  />
+                  
+                  {/* Overlay gradient for better visual appeal */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(135deg, rgba(25, 118, 210, 0.1) 0%, rgba(66, 165, 245, 0.1) 100%)',
+                      borderRadius: 'inherit'
+                    }}
+                  />
+                </Box>
               </AnimatedBox>
             </Grid>
 
@@ -451,6 +384,7 @@ const MissionandVision = () => {
                     <Button
                       variant="outlined"
                       size="large"
+                      onClick={handleMissionClick}
                       sx={{
                         borderColor: 'primary.main',
                         color: 'primary.main',
@@ -567,6 +501,7 @@ const MissionandVision = () => {
                     <Button
                       variant="outlined"
                       size="large"
+                      onClick={handleVisionClick}
                       sx={{
                         borderColor: 'primary.main',
                         color: 'primary.main',
@@ -593,7 +528,41 @@ const MissionandVision = () => {
             {/* Vision Image - Right */}
             <Grid item xs={12} lg={6}>
               <AnimatedBox isVisible={visibleSections.vision} direction="right" delay={0.2}>
-                <StudentImage variant="future" />
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    height: { xs: 300, sm: 400, md: 450 },
+                    borderRadius: { xs: 3, sm: 4 },
+                    overflow: 'hidden',
+                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.02) translateY(-8px)'
+                    }
+                  }}
+                >
+                  <img
+                    src={visionImg}
+                    alt="Our Vision - Future of Learning"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: 'inherit'
+                    }}
+                  />
+                  
+                  {/* Overlay gradient for better visual appeal */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(135deg, rgba(245, 87, 108, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%)',
+                      borderRadius: 'inherit'
+                    }}
+                  />
+                </Box>
               </AnimatedBox>
             </Grid>
           </Grid>
