@@ -434,73 +434,207 @@ const AboutUs = () => {
 
   const allTestimonials = [...userReviews, ...defaultTestimonials];
 
-  return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#fafafa' }}>
-      <HomePageNavbar />
-      
-      {/* Hero Section */}
-      <Box sx={{ 
+return (
+  <Box sx={{ minHeight: '100vh', bgcolor: '#fafafa' }}>
+    <HomePageNavbar />
+
+    {/* Hero Section */}
+    <Box
+      sx={{
         background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
         color: 'white',
         py: { xs: 8, lg: 12 },
         position: 'relative',
         overflow: 'hidden'
-      }}>
-        <Box sx={{ 
-          position: 'absolute', 
-          inset: 0, 
-          bgcolor: 'rgba(0,0,0,0.1)' 
-        }} />
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Box sx={{ 
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          bgcolor: 'rgba(0,0,0,0.1)'
+        }}
+      />
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box
+          sx={{
             textAlign: 'center',
             transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
             opacity: isLoaded ? 1 : 0,
             transition: 'all 1s ease-out'
-          }}>
-            <Typography 
-              variant="h2" 
-              component="h1" 
-              fontWeight="bold" 
-              gutterBottom
-              sx={{ 
-                fontSize: { xs: '2.5rem', lg: '4rem' },
-                background: 'linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
-              About Smart Learning LMS
-            </Typography>
-            <Typography variant="h5" sx={{ mb: 4, opacity: 0.9 }}>
-              Empowering Education Through Innovation
-            </Typography>
-            <ProgressBar value={100} delay={1000} />
-          </Box>
-        </Container>
-      </Box>
+          }}
+        >
+          <Typography
+            variant="h2"
+            component="h1"
+            fontWeight="bold"
+            gutterBottom
+            sx={{
+              fontSize: { xs: '2.5rem', lg: '4rem' },
+              background: 'linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
+            About Smart Learning LMS
+          </Typography>
+          <Typography variant="h5" sx={{ mb: 4, opacity: 0.9 }}>
+           Driving Educational Excellence Through Technology
+          </Typography>
+          <ProgressBar value={100} delay={1000} />
+        </Box>
+      </Container>
+    </Box>
 
-      {/* Company Overview */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <AnimatedDiv id="story-header">
+    {/* Company Overview */}
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <AnimatedDiv id="story-header">
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
+            Our Story
+          </Typography>
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 900, mx: 'auto' }}>
+            Established in 2020, Smart Learning LMS is redefining how people learn, teach, and grow in the digital era. 
+            Our journey began with a simple vision: to make high-quality education accessible, engaging, and effective for everyone.
+          </Typography>
+        </Box>
+      </AnimatedDiv>
+
+      <Grid container spacing={6} alignItems="center">
+        <Grid item xs={12} lg={6}>
+          <AnimatedDiv id="company-image" direction="left">
+            <Box
+              component="img"
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop"
+              alt="Smart Learning LMS"
+              sx={{
+                width: '100%',
+                height: 'auto',
+                borderRadius: 2,
+                boxShadow: 4
+              }}
+            />
+          </AnimatedDiv>
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <AnimatedDiv id="mission-content" direction="right" delay={200}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom color="text.primary">
+              Our Mission
+            </Typography>
+            <Typography variant="body1" color="text.secondary" paragraph>
+              We aim to democratize education by delivering a platform where learning is personalized, flexible, and impactful. 
+              From academic courses to professional upskilling, Smart Learning LMS is designed to help learners achieve their goals.
+            </Typography>
+            <Typography variant="body1" color="text.secondary" paragraph>
+              By blending advanced technology with pedagogical excellence, we ensure education is not limited by time, place, or background.
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+              <Chip label="Innovation" sx={{ bgcolor: '#e3f2fd', color: '#1976d2' }} />
+              <Chip label="Excellence" sx={{ bgcolor: '#e8f5e8', color: '#2e7d32' }} />
+              <Chip label="Accessibility" sx={{ bgcolor: '#fff3e0', color: '#f57c00' }} />
+            </Box>
+          </AnimatedDiv>
+        </Grid>
+      </Grid>
+    </Container>
+
+    {/* Stats Section */}
+    <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
+      <Container maxWidth="lg">
+        <AnimatedDiv id="stats-header">
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-              Our Story
+              Our Impact
             </Typography>
-            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-              Founded in 2020, Smart Learning LMS has been at the forefront of educational technology innovation
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto' }}>
+              Advancing education everywhere with measurable growth.
             </Typography>
           </Box>
         </AnimatedDiv>
 
+        <Grid container spacing={3}>
+          {stats.map((stat, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <StatsCard {...stat} delay={index * 100} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
+
+    {/* What We Offer */}
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <AnimatedDiv id="features-header">
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
+            What We Offer
+          </Typography>
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
+            Smarter, simpler, and more effective learning experiences
+          </Typography>
+        </Box>
+      </AnimatedDiv>
+
+      <Grid container spacing={4}>
+        {features.map((feature, index) => (
+          <Grid item xs={12} md={6} lg={4} key={index}>
+            <FeatureCard {...feature} delay={index * 100} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
+
+    {/* What Clients Get */}
+    <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
+      <Container maxWidth="lg">
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} lg={6}>
-            <AnimatedDiv id="company-image" direction="left">
+            <AnimatedDiv id="clients-content" direction="left">
+              <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
+                Why Choose Us
+              </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                Smart Learning LMS isn’t just another learning platform — it’s a complete ecosystem designed to support students, educators, and institutions in achieving excellence.
+              </Typography>
+
+              <Box sx={{ mt: 4 }}>
+                {benefits.map((benefit, index) => (
+                  <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}>
+                    <Box
+                      sx={{
+                        bgcolor: '#e3f2fd',
+                        p: 1,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}
+                    >
+                      <benefit.icon sx={{ color: '#1976d2', fontSize: 20 }} />
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" fontWeight="600" gutterBottom>
+                        {benefit.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {benefit.description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            </AnimatedDiv>
+          </Grid>
+
+          <Grid item xs={12} lg={6}>
+            <AnimatedDiv id="clients-image" direction="right" delay={200}>
               <Box
                 component="img"
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop"
-                alt="Our Company"
+                src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop"
+                alt="Smart Learning Experience"
                 sx={{
                   width: '100%',
                   height: 'auto',
@@ -510,322 +644,213 @@ const AboutUs = () => {
               />
             </AnimatedDiv>
           </Grid>
-          
-          <Grid item xs={12} lg={6}>
-            <AnimatedDiv id="mission-content" direction="right" delay={200}>
-              <Typography variant="h4" fontWeight="bold" gutterBottom color="text.primary">
-                Our Mission
-              </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                At Smart Learning LMS, we believe that quality education should be accessible to everyone, everywhere. 
-                Our mission is to democratize learning by providing a comprehensive, user-friendly platform that connects 
-                learners with world-class instructors and cutting-edge educational content.
-              </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                We are committed to breaking down traditional barriers to education and creating opportunities for 
-                personal and professional growth through innovative technology and pedagogical excellence.
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
-                <Chip label="Innovation" sx={{ bgcolor: '#e3f2fd', color: '#1976d2' }} />
-                <Chip label="Excellence" sx={{ bgcolor: '#e8f5e8', color: '#2e7d32' }} />
-                <Chip label="Accessibility" sx={{ bgcolor: '#fff3e0', color: '#f57c00' }} />
-              </Box>
-            </AnimatedDiv>
-          </Grid>
         </Grid>
       </Container>
+    </Box>
 
-      {/* Stats Section */}
-      <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
-        <Container maxWidth="lg">
-          <AnimatedDiv id="stats-header">
-            <Box sx={{ textAlign: 'center', mb: 6 }}>
-              <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-                Our Impact
-              </Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-                Numbers that reflect our commitment to educational excellence
-              </Typography>
-            </Box>
-          </AnimatedDiv>
-          
-          <Grid container spacing={3}>
-            {stats.map((stat, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <StatsCard {...stat} delay={index * 100} />
-              </Grid>
-            ))}
+    {/* Team Section */}
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <AnimatedDiv id="team-header">
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
+            Meet Our Team
+          </Typography>
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
+            Dedicated experts shaping the future of digital education
+          </Typography>
+        </Box>
+      </AnimatedDiv>
+
+      <Grid container spacing={4}>
+        {teamMembers.map((member, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <TeamMemberCard {...member} delay={index * 100} />
           </Grid>
-        </Container>
-      </Box>
+        ))}
+      </Grid>
+    </Container>
 
-      {/* What We Offer */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <AnimatedDiv id="features-header">
+    {/* Values Section */}
+    <Box sx={{ bgcolor: 'white', py: 8 }}>
+      <Container maxWidth="lg">
+        <AnimatedDiv id="values-header">
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-              What We Offer
+              Our Core Values
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-              Comprehensive learning solutions designed to meet diverse educational needs
+              The foundation that drives our innovation and impact
             </Typography>
           </Box>
         </AnimatedDiv>
 
         <Grid container spacing={4}>
-          {features.map((feature, index) => (
-            <Grid item xs={12} md={6} lg={4} key={index}>
-              <FeatureCard {...feature} delay={index * 100} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* What Clients Get */}
-      <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} lg={6}>
-              <AnimatedDiv id="clients-content" direction="left">
-                <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-                  What Our Clients Get
-                </Typography>
-                <Typography variant="body1" color="text.secondary" paragraph>
-                  When you choose Smart Learning LMS, you're not just getting a platform – you're gaining access to a 
-                  comprehensive educational ecosystem designed to accelerate your learning journey.
-                </Typography>
-                
-                <Box sx={{ mt: 4 }}>
-                  {benefits.map((benefit, index) => (
-                    <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}>
-                      <Box sx={{ 
-                        bgcolor: '#e3f2fd', 
-                        p: 1, 
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0
-                      }}>
-                        <benefit.icon sx={{ color: '#1976d2', fontSize: 20 }} />
-                      </Box>
-                      <Box>
-                        <Typography variant="h6" fontWeight="600" gutterBottom>
-                          {benefit.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {benefit.description}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  ))}
-                </Box>
-              </AnimatedDiv>
-            </Grid>
-            
-            <Grid item xs={12} lg={6}>
-              <AnimatedDiv id="clients-image" direction="right" delay={200}>
-                <Box
-                  component="img"
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop"
-                  alt="What Clients Get"
-                  sx={{
-                    width: '100%',
-                    height: 'auto',
-                    borderRadius: 2,
-                    boxShadow: 4
-                  }}
-                />
-              </AnimatedDiv>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Team Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <AnimatedDiv id="team-header">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-              Meet Our Team
-            </Typography>
-            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-              The passionate professionals behind Smart Learning LMS
-            </Typography>
-          </Box>
-        </AnimatedDiv>
-
-        <Grid container spacing={4}>
-          {teamMembers.map((member, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <TeamMemberCard {...member} delay={index * 100} />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* Values Section */}
-      <Box sx={{ bgcolor: 'white', py: 8 }}>
-        <Container maxWidth="lg">
-          <AnimatedDiv id="values-header">
-            <Box sx={{ textAlign: 'center', mb: 6 }}>
-              <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-                Our Values
-              </Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-                The principles that guide everything we do
-              </Typography>
-            </Box>
-          </AnimatedDiv>
-
-          <Grid container spacing={4}>
-            {[
-              { icon: TrendingUp, title: "Innovation", description: "We continuously push the boundaries of educational technology to create better learning experiences.", delay: 0 },
-              { icon: Star, title: "Quality", description: "Every course, feature, and interaction is crafted with meticulous attention to detail and excellence.", delay: 200 },
-              { icon: People, title: "Accessibility", description: "We believe education should be available to everyone, regardless of background or circumstance.", delay: 400 }
-            ].map((value, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <AnimatedDiv id={`value-${value.title.toLowerCase()}`} delay={value.delay}>
-                  <Box sx={{ textAlign: 'center' }}>
-                    <Box sx={{ 
-                      bgcolor: '#e3f2fd', 
-                      width: 64, 
-                      height: 64, 
+          {[
+            {
+              icon: TrendingUp,
+              title: 'Innovation',
+              description: 'We embrace emerging technologies to deliver smarter and more engaging learning solutions.',
+              delay: 0
+            },
+            {
+              icon: Star,
+              title: 'Quality',
+              description: 'Every feature, course, and tool is built with excellence and learner success in mind.',
+              delay: 200
+            },
+            {
+              icon: People,
+              title: 'Accessibility',
+              description: 'We believe education is a right, not a privilege — available to all, anytime, anywhere.',
+              delay: 400
+            }
+          ].map((value, index) => (
+            <Grid item xs={12} md={4} key={index}>
+              <AnimatedDiv id={`value-${value.title.toLowerCase()}`} delay={value.delay}>
+                <Box sx={{ textAlign: 'center' }}>
+                  <Box
+                    sx={{
+                      bgcolor: '#e3f2fd',
+                      width: 64,
+                      height: 64,
                       borderRadius: '50%',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       mx: 'auto',
                       mb: 2
-                    }}>
-                      <value.icon sx={{ color: '#1976d2', fontSize: 32 }} />
-                    </Box>
-                    <Typography variant="h5" fontWeight="bold" gutterBottom color="text.primary">
-                      {value.title}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                      {value.description}
-                    </Typography>
+                    }}
+                  >
+                    <value.icon sx={{ color: '#1976d2', fontSize: 32 }} />
                   </Box>
-                </AnimatedDiv>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+                  <Typography variant="h5" fontWeight="bold" gutterBottom color="text.primary">
+                    {value.title}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    {value.description}
+                  </Typography>
+                </Box>
+              </AnimatedDiv>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
 
-      {/* Enhanced Testimonials Section */}
-      <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
-        <Container maxWidth="lg">
-          <AnimatedDiv id="testimonials-header">
-            <Box sx={{ textAlign: 'center', mb: 6 }}>
-              <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
-                What Our Students Say
-              </Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                Real feedback from learners who've transformed their careers
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                onClick={() => setReviewDialogOpen(true)}
-                sx={{ 
-                  background: 'linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)',
-                  boxShadow: '0 3px 5px 2px rgba(25, 118, 210, .3)',
-                  '&:hover': {
-                    background: 'linear-gradient(45deg, #1565c0 30%, #1976d2 90%)',
-                  }
-                }}
-              >
-                Add Your Review
-              </Button>
-            </Box>
-          </AnimatedDiv>
+    {/* Testimonials */}
+    <Box sx={{ bgcolor: '#f5f5f5', py: 8 }}>
+      <Container maxWidth="lg">
+        <AnimatedDiv id="testimonials-header">
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h3" fontWeight="bold" gutterBottom color="text.primary">
+              What Our Learners Say
+            </Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              Stories from students and professionals who upgraded their learning journey with us
+            </Typography>
+            <Button
+              variant="contained"
+              startIcon={<Add />}
+              onClick={() => setReviewDialogOpen(true)}
+              sx={{
+                background: 'linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)',
+                boxShadow: '0 3px 5px 2px rgba(25, 118, 210, .3)',
+                '&:hover': {
+                  background: 'linear-gradient(45deg, #1565c0 30%, #1976d2 90%)'
+                }
+              }}
+            >
+              Add Your Review
+            </Button>
+          </Box>
+        </AnimatedDiv>
 
-          <Grid container spacing={4}>
-            {allTestimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <AnimatedDiv id={`testimonial-${index + 1}`} delay={index * 100}>
-                  <Card sx={{ 
+        <Grid container spacing={4}>
+          {allTestimonials.map((testimonial, index) => (
+            <Grid item xs={12} md={4} key={index}>
+              <AnimatedDiv id={`testimonial-${index + 1}`} delay={index * 100}>
+                <Card
+                  sx={{
                     height: '100%',
                     transition: 'all 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-4px)',
                       boxShadow: 4
                     }
-                  }}>
-                    <CardContent sx={{ p: 3 }}>
-                      <Rating value={testimonial.rating} readOnly sx={{ mb: 2 }} />
-                      <Typography variant="body1" color="text.secondary" paragraph>
-                        "{testimonial.text}"
-                      </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                        <Avatar
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          sx={{ width: 40, height: 40 }}
-                        />
-                        <Box>
-                          <Typography variant="subtitle2" fontWeight="600">
-                            {testimonial.name}
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {testimonial.role}
-                          </Typography>
-                        </Box>
+                  }}
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Rating value={testimonial.rating} readOnly sx={{ mb: 2 }} />
+                    <Typography variant="body1" color="text.secondary" paragraph>
+                      "{testimonial.text}"
+                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                      <Avatar
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        sx={{ width: 40, height: 40 }}
+                      />
+                      <Box>
+                        <Typography variant="subtitle2" fontWeight="600">
+                          {testimonial.name}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {testimonial.role}
+                        </Typography>
                       </Box>
-                    </CardContent>
-                  </Card>
-                </AnimatedDiv>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </AnimatedDiv>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
 
-      {/* Call to Action */}
-      <Box sx={{ 
+    {/* CTA Section */}
+    <Box
+      sx={{
         background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
         color: 'white',
         py: 8
-      }}>
-        <Container maxWidth="lg">
-          <AnimatedDiv id="cta-content">
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="h3" fontWeight="bold" gutterBottom>
-                Ready to Transform Your Learning?
-              </Typography>
-              <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
-                Join thousands of learners who have already started their journey with Smart Learning LMS
-              </Typography>
-            </Box>
-          </AnimatedDiv>
-        </Container>
-      </Box>
-      {/* Review Form Dialog */}
-      <ReviewForm
-        open={reviewDialogOpen}
-        onClose={() => setReviewDialogOpen(false)}
-        onSubmit={handleReviewSubmit}
-      />
-
-      {/* Success Snackbar */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={4000}
-        onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert 
-          onClose={() => setSnackbarOpen(false)} 
-          severity="success" 
-          sx={{ width: '100%' }}
-        >
-          Thank you for your review! It has been added successfully.
-        </Alert>
-      </Snackbar>
+      }}
+    >
+      <Container maxWidth="lg">
+        <AnimatedDiv id="cta-content">
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h3" fontWeight="bold" gutterBottom>
+              Ready to Transform Your Learning?
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
+              Join thousands of learners worldwide who are achieving success with Smart Learning LMS
+            </Typography>
+          </Box>
+        </AnimatedDiv>
+      </Container>
     </Box>
-  );
+
+    {/* Review Form */}
+    <ReviewForm
+      open={reviewDialogOpen}
+      onClose={() => setReviewDialogOpen(false)}
+      onSubmit={handleReviewSubmit}
+    />
+
+    {/* Snackbar */}
+    <Snackbar
+      open={snackbarOpen}
+      autoHideDuration={4000}
+      onClose={() => setSnackbarOpen(false)}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    >
+      <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: '100%' }}>
+        Thank you for your review! It has been added successfully.
+      </Alert>
+    </Snackbar>
+  </Box>
+);
+
 };
 
 export default AboutUs;
