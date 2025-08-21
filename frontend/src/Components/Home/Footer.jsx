@@ -98,7 +98,7 @@ const Footer = () => (
               mb: 2,
             }}
           >
-            <strong style={{ color: '#1976d2' }}>SmartLearn LMS</strong> is your trusted learning companion—connecting students, instructors, and professionals across the world.
+            <strong style={{ color: '#1976d2' }}>CourseMinistry</strong> is your trusted learning companion—connecting students, instructors, and professionals across the world.
           </Typography>
           <Typography 
             variant="body2"
@@ -471,12 +471,12 @@ const Footer = () => (
               <ListItemText 
                 primary={
                   <Typography variant="body2" sx={{ fontWeight: 600, color: '#1976d2' }}>
-                    SmartLearn HQ
+                    CourseMinistry HQ
                   </Typography>
                 }
                 secondary={
                   <Typography variant="body2" sx={{ color: '#666666' }}>
-                    123 Knowledge Lane, Sydney 2233, Australia
+                    Pothuhera, Kurunegala, Sri Lanka
                   </Typography>
                 }
               />
@@ -539,7 +539,7 @@ const Footer = () => (
               <ListItemText 
                 primary={
                   <Typography variant="body2" sx={{ color: '#666666' }}>
-                    support@smartlearn.com
+                    support@courseministry.com
                   </Typography>
                 }
               />
@@ -679,7 +679,7 @@ const Footer = () => (
             },
           }}
         >
-          © {new Date().getFullYear()} <strong>SmartLearn LMS</strong> — All Rights Reserved | Developed by <strong>BlackCode</strong>
+          © {new Date().getFullYear()} <strong>CourseMinistry</strong> — All Rights Reserved | Developed by <strong>BlackCode Devs.</strong>
         </Typography>
       </Box>
     </Container>
