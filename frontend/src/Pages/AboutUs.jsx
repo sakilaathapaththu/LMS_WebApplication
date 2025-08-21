@@ -726,7 +726,7 @@ const AboutUs = () => {
               <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
                 Real feedback from learners who've transformed their careers
               </Typography>
-              {/* <Button
+              <Button
                 variant="contained"
                 startIcon={<Add />}
                 onClick={() => setReviewDialogOpen(true)}
@@ -739,7 +739,7 @@ const AboutUs = () => {
                 }}
               >
                 Add Your Review
-              </Button> */}
+              </Button>
             </Box>
           </AnimatedDiv>
 
