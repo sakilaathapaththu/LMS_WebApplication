@@ -349,7 +349,7 @@ const MissionandVision = () => {
                       textAlign: { xs: 'center', lg: 'left' }
                     }}
                   >
-                    To democratize quality education by providing an intuitive, accessible, and comprehensive learning management system that bridges the gap between traditional and digital learning. We strive to empower educators with cutting-edge tools and students with personalized learning experiences that adapt to their unique needs and pace.
+                    To empower students with accessible, high-quality educational resources and personalized guidance, fostering knowledge, skill development, and lifelong learning through an intuitive and innovative online learning platform
                   </Typography>
                   
                   <Box sx={{ 
@@ -466,7 +466,7 @@ const MissionandVision = () => {
                       textAlign: { xs: 'center', lg: 'left' }
                     }}
                   >
-                    To become the world's leading learning platform that transforms how knowledge is shared, acquired, and applied. We envision a future where every learner has access to personalized, engaging, and effective educational experiences that unlock their full potential and contribute to global progress and innovation.
+                    To become the leading online learning ministry, transforming the educational journey of students worldwide by providing a trusted, comprehensive, and inspiring digital environment for learning, growth, and achievement
                   </Typography>
                   
                   <Box sx={{ 
@@ -737,7 +737,7 @@ const MissionandVision = () => {
                   mx: 'auto'
                 }}
               >
-                Join thousands of learners who have already discovered the power of SmartLearn
+                Join thousands of learners who have already discovered the power of CourseMinistry
               </Typography>
               <Button
                 variant="contained"
