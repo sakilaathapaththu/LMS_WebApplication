@@ -166,8 +166,8 @@ const CoursesPage = () => {
                 }}
               >
                 <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
-                  <School sx={{ fontSize: 'inherit', color: '#1976d2' }} />
-                  SmartLearn
+                  {/* <School sx={{ fontSize: 'inherit', color: '#1976d2' }} /> */}
+                  CourseMinistry
                 </Box>
               </Typography>
             </Box>
