@@ -36,7 +36,7 @@ export default function HomePageNavbar() {
 
   return (
     <AppBar 
-      position="static" 
+      position="fixed" 
       elevation={0}
       sx={{ 
         bgcolor: '#ffffff',

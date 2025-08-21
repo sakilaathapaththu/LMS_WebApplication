@@ -1,15 +1,20 @@
+
 // const mongoose = require("mongoose");
 
 // mongoose.set("strictQuery", false);
 
 // const conn = mongoose
-//   .connect(process.env.ATLAS_URI)
+//   .connect(process.env.ATLAS_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     dbName: "LMS", // ✅ Ensures data goes into LMS DB
+//   })
 //   .then((db) => {
-//     console.log("Database Connected");
+//     console.log("✅ Database Connected to LMS");
 //     return db;
 //   })
 //   .catch((err) => {
-//     console.log("Connection Error");
+//     console.error("❌ Connection Error:", err.message);
 //   });
 
 // module.exports = conn;
@@ -19,9 +24,7 @@ mongoose.set("strictQuery", false);
 
 const conn = mongoose
   .connect(process.env.ATLAS_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: "LMS", // ✅ Ensures data goes into LMS DB
+    dbName: "LMS", // ✅ Only keep dbName
   })
   .then((db) => {
     console.log("✅ Database Connected to LMS");
