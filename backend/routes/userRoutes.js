@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/authMiddleware");
 const upload = require("../middlewares/upload");
+const { uploadToVercelBlob } = require("../middlewares/upload");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const Course = require("../models/Course"); // ✅ FIXED
@@ -13,9 +14,13 @@ router.put("/me", auth, upload.single("profileImage"), async (req, res) => {
 
     const updateData = { firstName, lastName, email, birthday, nic, username };
 
+    // if (req.file) {
+    //   updateData.profileImage = `uploads/${req.file.filename}`;
+    // }
     if (req.file) {
-      updateData.profileImage = `uploads/${req.file.filename}`;
-    }
+      const { uploadToVercelBlob } = require("../middlewares/upload");
+   updateData.profileImage = await uploadToVercelBlob(req.file, "profile-images");
+ }
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
