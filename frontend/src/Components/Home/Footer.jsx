@@ -10,6 +10,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { Link, Typography } from '@mui/material';
 
+
 const Footer = () => (
   <Box 
     sx={{ 
@@ -465,7 +466,7 @@ const Footer = () => (
                 },
               }}
             >
-              <ListItemIcon sx={{ minWidth: 36 }}>
+              <ListItemIcon sx={{ minWidth: 30 }}>
                 <LocationOn sx={{ color: '#42a5f5', fontSize: 20 }} />
               </ListItemIcon>
               <ListItemText 
@@ -491,7 +492,7 @@ const Footer = () => (
                 },
               }}
             >
-              <ListItemIcon sx={{ minWidth: 36 }}>
+              <ListItemIcon sx={{ minWidth: 30 }}>
                 <Phone sx={{ color: '#42a5f5', fontSize: 20 }} />
               </ListItemIcon>
               <ListItemText 
@@ -512,7 +513,7 @@ const Footer = () => (
                 },
               }}
             >
-              <ListItemIcon sx={{ minWidth: 36 }}>
+              <ListItemIcon sx={{ minWidth: 30 }}>
                 <Fax sx={{ color: '#42a5f5', fontSize: 20 }} />
               </ListItemIcon>
               <ListItemText 
@@ -533,13 +534,13 @@ const Footer = () => (
                 },
               }}
             >
-              <ListItemIcon sx={{ minWidth: 36 }}>
+              <ListItemIcon sx={{ minWidth: 30 }}>
                 <Email sx={{ color: '#42a5f5', fontSize: 20 }} />
               </ListItemIcon>
               <ListItemText 
                 primary={
                   <Typography variant="body2" sx={{ color: '#666666' }}>
-                    support@courseministry.com
+                    helloblackcodedev@gmail.com
                   </Typography>
                 }
               />
@@ -665,6 +666,42 @@ const Footer = () => (
             height: '2px',
             background: 'linear-gradient(90deg, transparent, #42a5f5, transparent)',
           },
+          // Define keyframes for the BlackCode Devs animation
+          '@keyframes subtleGlow': {
+            '0%, 100%': {
+              textShadow: '0 0 2px rgba(25, 118, 210, 0.3)',
+            },
+            '50%': {
+              textShadow: '0 0 4px rgba(25, 118, 210, 0.5)',
+            },
+          },
+          '@keyframes eyeCatcher': {
+            '0%': {
+              transform: 'scale(1)',
+              backgroundColor: 'transparent',
+              boxShadow: '0 0 0 rgba(25, 118, 210, 0)',
+            },
+            '20%': {
+              transform: 'scale(1.08)',
+              backgroundColor: 'rgba(25, 118, 210, 0.1)',
+              boxShadow: '0 0 15px rgba(25, 118, 210, 0.4)',
+            },
+            '40%': {
+              transform: 'scale(1)',
+              backgroundColor: 'transparent',
+              boxShadow: '0 0 8px rgba(25, 118, 210, 0.3)',
+            },
+            '60%': {
+              transform: 'scale(1.05)',
+              backgroundColor: 'rgba(25, 118, 210, 0.08)',
+              boxShadow: '0 0 12px rgba(25, 118, 210, 0.35)',
+            },
+            '100%': {
+              transform: 'scale(1)',
+              backgroundColor: 'transparent',
+              boxShadow: '0 0 0 rgba(25, 118, 210, 0)',
+            },
+          },
         }}
       >
         <Typography 
@@ -679,7 +716,36 @@ const Footer = () => (
             },
           }}
         >
-          © {new Date().getFullYear()} <strong>CourseMinistry</strong> — All Rights Reserved | Developed by <strong>BlackCode Devs.</strong>
+          © {new Date().getFullYear()} <strong>CourseMinistry</strong> - All Rights Reserved | 
+          Developed by{' '}
+          <Link 
+            href="https://www.blackcodedev.com" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            sx={{ 
+              color: '#1976d2', 
+              fontWeight: 'bold', 
+              textDecoration: 'none',
+              position: 'relative',
+              display: 'inline-block',
+              padding: '2px 6px',
+              borderRadius: '4px',
+              transition: 'all 0.3s ease-in-out',
+              animation: 'eyeCatcher 2.5s ease-in-out 1s 1, subtleGlow 3s ease-in-out 4s infinite',
+              
+              // Hover effects
+              '&:hover': {
+                color: '#ffffff',
+                backgroundColor: '#1976d2',
+                transform: 'translateY(-1px)',
+                boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)',
+                textShadow: 'none',
+                animation: 'none', // Stop other animations on hover
+              },
+            }}
+          >
+            BlackCode Devs
+          </Link>.
         </Typography>
       </Box>
     </Container>

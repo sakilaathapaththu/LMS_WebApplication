@@ -472,7 +472,7 @@ const AboutUs = () => {
                 backgroundClip: 'text'
               }}
             >
-              About CourseMinistry LMS
+              About CourseMinistry
             </Typography>
             <Typography variant="h5" sx={{ mb: 4, opacity: 0.9 }}>
               Your Ministry of Knowledge
