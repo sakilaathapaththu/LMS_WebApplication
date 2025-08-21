@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://lms-web-application-five.vercel.app/";
-export const IMAGE_BASE_URL = "https://lms-web-application-five.vercel.app/"; // for profile/course images
+export const API_BASE_URL = "http://localhost:10000/api";
+export const IMAGE_BASE_URL = "http://localhost:10000"; // for profile/course images
 
 // export const API_BASE_URL = "https://lms-web-application.vercel.app/api";
 // export const IMAGE_BASE_URL = "https://lms-web-application.vercel.app";

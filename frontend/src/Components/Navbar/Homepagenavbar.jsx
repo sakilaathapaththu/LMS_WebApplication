@@ -1,5 +1,7 @@
 
 import * as React from 'react';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   AppBar, Box, Toolbar, IconButton, Typography,
   Menu, Container, Avatar, Button, Tooltip, MenuItem
@@ -33,6 +35,11 @@ export default function HomePageNavbar() {
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   return (
     <AppBar 
