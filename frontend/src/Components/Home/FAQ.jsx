@@ -40,17 +40,17 @@ const FAQSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // FAQ data for SmartLearn LMS
+  // FAQ data for CourseMinistry LMS
   const faqData = [
     {
       id: 'panel1',
-      question: 'How do I get started with SmartLearn?',
+      question: 'How do I get started with CourseMinistry?',
       answer: 'Getting started is easy! Simply create your account, choose your learning path, and begin with our interactive onboarding process. Our AI-powered system will recommend courses based on your goals and skill level.'
     },
     {
       id: 'panel2',
       question: 'Can I access courses offline?',
-      answer: 'Yes, SmartLearn offers offline access to downloaded course materials. You can download videos, documents, and interactive content to continue learning even without an internet connection.'
+      answer: 'Yes, CourseMinistry offers offline access to downloaded course materials. You can download videos, documents, and interactive content to continue learning even without an internet connection.'
     },
     {
       id: 'panel3',
@@ -60,7 +60,7 @@ const FAQSection = () => {
     {
       id: 'panel4',
       question: 'Is there a mobile app available?',
-      answer: 'Absolutely! SmartLearn is fully responsive and offers dedicated mobile apps for both iOS and Android. Access all features, track progress, and learn on-the-go with our optimized mobile experience.'
+      answer: 'Absolutely! CourseMinistry is fully responsive and offers dedicated mobile apps for both iOS and Android. Access all features, track progress, and learn on-the-go with our optimized mobile experience.'
     },
     {
       id: 'panel5',
@@ -271,7 +271,7 @@ const FAQSection = () => {
                   lineHeight: 1.6
                 }}
               >
-                Find answers to common questions about SmartLearn and how our platform can enhance your learning journey
+                Find answers to common questions about CourseMinistry and how our platform can enhance your learning journey
               </Typography>
             </Box>
           </Fade>
@@ -616,7 +616,7 @@ const FAQSection = () => {
                   Still need assistance?
                 </Typography>
                 <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-                  Our expert team is standing by to help you succeed with SmartLearn
+                  Our expert team is standing by to help you succeed with CourseMinistry
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
                   <Button

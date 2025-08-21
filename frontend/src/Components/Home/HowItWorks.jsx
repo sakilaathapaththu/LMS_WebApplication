@@ -52,7 +52,7 @@ const HowItWorksSection = () => {
             marginBottom: '16px',
             margin: '0 0 16px 0'
           }}>
-            How SmartLearn Works
+            How CourseMinistry Works
           </h2>
           
           <p style={{
