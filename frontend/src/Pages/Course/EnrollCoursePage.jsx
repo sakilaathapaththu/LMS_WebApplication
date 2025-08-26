@@ -350,7 +350,23 @@ const EnrollCoursePage = () => {
       </MainContainer>
     );
   }
+  
+const fileBase = (IMAGE_BASE_URL || "").replace(/\/api\/?$/, ""); 
+function resolveCoverUrl(coverImage) {
+  if (!coverImage) return "/course-placeholder.png";
+  let p = String(coverImage);
 
+  // If absolute URL, return as-is
+  if (/^https?:\/\//i.test(p)) return p;
+
+  // Normalize Windows-style paths to forward slashes
+  p = p.replace(/\\/g, "/");
+
+  // Remove leading slash to avoid double slashes when concatenating
+  if (p.startsWith("/")) p = p.slice(1);
+
+  return `${fileBase}/${p}`; // fileBase points to your server origin (no /api)
+}
   return (
     <MainContainer>
       <HomePageNavbar />
@@ -372,11 +388,18 @@ const EnrollCoursePage = () => {
               
               <Grow in={true} timeout={1200}>
                 <ImageContainer>
-                  <CourseImage
+                  {/* <CourseImage
                     src={`${IMAGE_BASE_URL}/${course.coverImage}`}
                     alt={`${course.title} cover`}
                     loading="lazy"
+                  /> */}
+                  <CourseImage
+                    src={resolveCoverUrl(course.coverImage)}
+                    alt={`${course.title} cover`}
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.src = "/course-placeholder.png"; }}
                   />
+
                 </ImageContainer>
               </Grow>
               
