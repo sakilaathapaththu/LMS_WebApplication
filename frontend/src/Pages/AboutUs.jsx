@@ -40,6 +40,7 @@ import {
   Send
 } from "@mui/icons-material";
 
+
 // Enhanced scroll animation hook
 const useScrollAnimation = () => {
   const [visibleElements, setVisibleElements] = useState(new Set());
@@ -471,10 +472,10 @@ const AboutUs = () => {
                 backgroundClip: 'text'
               }}
             >
-              About Smart Learning LMS
+              About CourseMinistry
             </Typography>
             <Typography variant="h5" sx={{ mb: 4, opacity: 0.9 }}>
-              Empowering Education Through Innovation
+              Your Ministry of Knowledge
             </Typography>
             <ProgressBar value={100} delay={1000} />
           </Box>
@@ -489,7 +490,7 @@ const AboutUs = () => {
               Our Story
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-              Founded in 2020, Smart Learning LMS has been at the forefront of educational technology innovation
+              Founded in 2024, CourseMinistry has been at the forefront of educational technology innovation
             </Typography>
           </Box>
         </AnimatedDiv>
@@ -517,9 +518,9 @@ const AboutUs = () => {
                 Our Mission
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
-                At Smart Learning LMS, we believe that quality education should be accessible to everyone, everywhere. 
-                Our mission is to democratize learning by providing a comprehensive, user-friendly platform that connects 
-                learners with world-class instructors and cutting-edge educational content.
+                To empower students with accessible, high-quality educational resources and personalized guidance, 
+                fostering knowledge, skill development, and lifelong learning through an intuitive and 
+                innovative online learning platform
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
                 We are committed to breaking down traditional barriers to education and creating opportunities for 
@@ -591,7 +592,7 @@ const AboutUs = () => {
                   What Our Clients Get
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  When you choose Smart Learning LMS, you're not just getting a platform – you're gaining access to a 
+                  When you choose CourseMinistry, you're not just getting a platform – you're gaining access to a 
                   comprehensive educational ecosystem designed to accelerate your learning journey.
                 </Typography>
                 
@@ -650,7 +651,7 @@ const AboutUs = () => {
               Meet Our Team
             </Typography>
             <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-              The passionate professionals behind Smart Learning LMS
+              The passionate professionals behind CourseMinistry LMS
             </Typography>
           </Box>
         </AnimatedDiv>
@@ -796,7 +797,7 @@ const AboutUs = () => {
                 Ready to Transform Your Learning?
               </Typography>
               <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
-                Join thousands of learners who have already started their journey with Smart Learning LMS
+                Join thousands of learners who have already started their journey with CourseMinistry
               </Typography>
             </Box>
           </AnimatedDiv>
