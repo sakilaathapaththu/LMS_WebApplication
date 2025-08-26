@@ -1,5 +1,9 @@
-// HomePageNavbar.jsx
-import * as React from "react";
+
+
+import * as React from 'react';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import {
   AppBar,
   Box,
@@ -19,6 +23,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Utils/AuthContext";
 import API, { IMAGE_BASE_URL } from "../../Utils/api";
+import lmsLogo from "../../Assets/images/lms logo.png";
+
 
 const pages = ["Home", "Courses", "About Us", "Contact Us"];
 const pageRoutes = {
@@ -52,7 +58,15 @@ export default function HomePageNavbar() {
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+
   const avatarSrc = getAvatarSrc(user);
+
   return (
     <AppBar
       position="fixed"
@@ -64,6 +78,32 @@ export default function HomePageNavbar() {
       }}
     >
       <Container maxWidth="xl">
+        <Toolbar disableGutters sx={{ minHeight: '70px' }}>
+
+          {/* Desktop Logo */}
+        <Box
+          onClick={() => navigate('/')}
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+            mr: 4,
+            cursor: 'pointer'
+          }}
+        >
+          <img
+            src={lmsLogo}
+            alt="SmartLearn Logo"
+            style={{ height: '70px', width: 'auto' }}
+          />
+        </Box>
+          {/* <SchoolIcon sx={{ 
+            display: { xs: 'none', md: 'flex' }, 
+            mr: 1.5,
+            color: '#1976d2',
+            fontSize: '2rem'
+          }} /> */}
+          {/* <Typography
+
         <Toolbar disableGutters sx={{ minHeight: "70px" }}>
           <SchoolIcon
             sx={{
@@ -74,6 +114,7 @@ export default function HomePageNavbar() {
             }}
           />
           <Typography
+
             variant="h5"
             noWrap
             onClick={() => navigate("/")}
@@ -93,7 +134,7 @@ export default function HomePageNavbar() {
             }}
           >
             SmartLearn
-          </Typography>
+          </Typography> */}
 
           {/* Mobile nav toggle */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -156,6 +197,28 @@ export default function HomePageNavbar() {
           </Box>
 
           {/* Small screen logo */}
+
+          
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' }, // flex only on mobile
+              justifyContent: 'center',           // center horizontally
+              alignItems: 'center',               // optional: center vertically if needed
+              width: '100%',                      // make sure parent takes full width
+            }}
+          >
+            <Box
+              component="img"
+              src={lmsLogo}
+              alt="SmartLearn"
+              sx={{
+                height: '70px',
+                width: 'auto',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate('/')}
+            />
+
           <SchoolIcon
             sx={{
               display: { xs: "flex", md: "none" },
@@ -216,8 +279,33 @@ export default function HomePageNavbar() {
                 {page}
               </Button>
             ))}
+
           </Box>
 
+
+          {/* Desktop menu */}
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 2 }}>
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={() => { handleCloseNavMenu(); navigate(pageRoutes[page]); }}
+                    sx={{
+                      my: 2,
+                      mx: 1,
+                      px: 2,
+                      py: 1,
+                      color: '#424242',
+                      fontWeight: 500,
+                      fontSize: '0.95rem',
+                      textTransform: 'none',
+                      borderRadius: '8px',
+                      '&:hover': { backgroundColor: 'rgba(25, 118, 210, 0.08)', color: '#1976d2' }
+                    }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </Box>
           {/* Right-side profile/login menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Account settings">

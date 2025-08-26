@@ -86,7 +86,13 @@ export default function HomepageCarousel() {
                 position: 'relative',
                 borderRadius: 0,
                 overflow: 'hidden',
-                height: { xs: '400px', sm: '500px', md: '600px' }
+                // Full viewport height
+                height: '100vh',
+                minHeight: '600px', // Minimum height for smaller screens
+                width: '100%',
+                // Ensure it's at the top of the page
+                top: 0,
+                left: 0
             }}
         >
             {/* Background Images Carousel - Changed to fade transition */}
@@ -145,10 +151,12 @@ export default function HomepageCarousel() {
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
+                        alignItems: { xs: 'center', md: 'flex-start' }, // Center on mobile, left-align on desktop
                         height: '100%',
                         maxWidth: { xs: '100%', md: '60%' },
                         pl: { xs: 2, md: 4 },
-                        pr: { xs: 2, md: 0 }
+                        pr: { xs: 2, md: 0 },
+                        textAlign: { xs: 'center', md: 'left' } // Center text on mobile
                     }}
                 >
                     {/* Main Heading - Slides in from left */}
@@ -158,7 +166,7 @@ export default function HomepageCarousel() {
                             sx={{
                                 color: 'white',
                                 fontWeight: 800,
-                                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
+                                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem', lg: '4.5rem' },
                                 lineHeight: 1.2,
                                 mb: 2,
                                 textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
@@ -179,7 +187,7 @@ export default function HomepageCarousel() {
                             sx={{
                                 color: 'white',
                                 fontWeight: 500,
-                                fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
+                                fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem', lg: '2rem' },
                                 lineHeight: 1.3,
                                 mb: 1,
                                 textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
@@ -199,10 +207,10 @@ export default function HomepageCarousel() {
                             variant="body1" 
                             sx={{
                                 color: 'rgba(255,255,255,0.9)',
-                                fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                                fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem', lg: '1.3rem' },
                                 lineHeight: 1.6,
                                 mb: 4,
-                                maxWidth: '500px',
+                                maxWidth: { xs: '90%', md: '500px' },
                                 textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                                 fontWeight: 400,
                                 transform: showContent ? 'translateY(0)' : 'translateY(20px)',
@@ -224,9 +232,9 @@ export default function HomepageCarousel() {
                                 sx={{
                                     bgcolor: '#1976d2',
                                     color: 'white',
-                                    px: 4,
-                                    py: 1.5,
-                                    fontSize: '1.1rem',
+                                    px: { xs: 3, md: 4 },
+                                    py: { xs: 1.2, md: 1.5 },
+                                    fontSize: { xs: '1rem', md: '1.1rem' },
                                     fontWeight: 600,
                                     borderRadius: '50px',
                                     textTransform: 'none',
@@ -244,6 +252,69 @@ export default function HomepageCarousel() {
                             </Button>
                         </Box>
                     </Zoom>
+
+                    {/* Optional: Scroll indicator */}
+                    <Fade in={showContent} timeout={1500}>
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                bottom: 30,
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                display: { xs: 'none', md: 'block' },
+                                color: 'rgba(255,255,255,0.7)',
+                                cursor: 'pointer',
+                                animation: 'bounce 2s infinite',
+                                '@keyframes bounce': {
+                                    '0%, 20%, 50%, 80%, 100%': {
+                                        transform: 'translateX(-50%) translateY(0)',
+                                    },
+                                    '40%': {
+                                        transform: 'translateX(-50%) translateY(-10px)',
+                                    },
+                                    '60%': {
+                                        transform: 'translateX(-50%) translateY(-5px)',
+                                    },
+                                }
+                            }}
+                            onClick={() => {
+                                window.scrollTo({
+                                    top: window.innerHeight,
+                                    behavior: 'smooth'
+                                });
+                            }}
+                        >
+                            <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mb: 1 }}>
+                                Scroll Down
+                            </Typography>
+                            <Box
+                                sx={{
+                                    width: '24px',
+                                    height: '36px',
+                                    border: '2px solid rgba(255,255,255,0.5)',
+                                    borderRadius: '12px',
+                                    position: 'relative',
+                                    margin: '0 auto',
+                                    '&::after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        top: '6px',
+                                        left: '50%',
+                                        width: '4px',
+                                        height: '8px',
+                                        backgroundColor: 'rgba(255,255,255,0.7)',
+                                        borderRadius: '2px',
+                                        transform: 'translateX(-50%)',
+                                        animation: 'scrollDot 2s infinite',
+                                    },
+                                    '@keyframes scrollDot': {
+                                        '0%': { opacity: 1, top: '6px' },
+                                        '100%': { opacity: 0, top: '22px' },
+                                    }
+                                }}
+                            />
+                        </Box>
+                    </Fade>
                 </Box>
             </Container>
         </Paper>

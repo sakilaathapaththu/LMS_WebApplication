@@ -121,7 +121,7 @@ const FeaturesSection = () => {
         <div className={`header-section ${isVisible ? 'animate-in' : ''}`}>
           <h2 className="main-title">Powerful Features for Smarter Learning</h2>
           <p className="subtitle">
-            Our LMS empowers both students and admins with the right tools for progress, engagement, and success.
+            CourseMinistry empowers both students and admins with the right tools for progress, engagement, and success.
           </p>
         </div>
         
