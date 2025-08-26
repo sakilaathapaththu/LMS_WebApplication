@@ -74,6 +74,28 @@ const CoursesPage = () => {
       default: return '📚';
     }
   };
+// helpers (top of file)
+const getCoverSrc = (course) => {
+  const fallback = "/course-placeholder.jpg"; // add a placeholder in /public
+  let p = course?.coverImage;
+  if (!p) return fallback;
+
+  p = String(p).trim();
+
+  // If backend already returns a full URL (Vercel Blob/S3/etc.)
+  if (/^https?:\/\//i.test(p)) return p;
+
+  // Normalize slashes
+  p = p.replace(/\\/g, "/").replace(/^\/+/, "");
+
+  // Avoid “uploads/uploads/..”
+  // If p already starts with 'uploads/', don't add another 'uploads'
+  const needsBase = !/^uploads\//i.test(p);
+  const path = needsBase ? p : p; // keep as-is if it already contains uploads/
+
+  // IMAGE_BASE_URL should be like: http://localhost:5000
+  return `${IMAGE_BASE_URL}/${path}`;
+};
 
   return (
     <Box sx={{
@@ -129,7 +151,9 @@ const CoursesPage = () => {
           py: { xs: 6, md: 8 },
           px: 3,
           position: 'relative',
-          zIndex: 1
+          zIndex: 1,
+          mt:10
+         
         }}>
           <Slide in={true} direction="down" timeout={1200}>
             <Box sx={{ position: 'relative' }}>
@@ -172,75 +196,7 @@ const CoursesPage = () => {
               </Typography>
             </Box>
           </Slide>
-          
-          <Slide in={true} direction="up" timeout={1400}>
-            <Typography
-              variant="h3"
-              sx={{
-                fontWeight: 700,
-                color: '#1565c0',
-                mb: 3,
-                fontSize: { xs: '1.8rem', md: '2.5rem' }
-              }}
-            >
-              {user ? 'Your Learning Dashboard' : 'Transform Your Future Today'}
-            </Typography>
-          </Slide>
-
-          <Fade in={true} timeout={1600}>
-            <Typography
-              variant="h6"
-              sx={{
-                color: '#424242',
-                maxWidth: 700,
-                mx: 'auto',
-                mb: 4,
-                fontSize: { xs: '1.1rem', md: '1.3rem' },
-                fontWeight: 400,
-                lineHeight: 1.6
-              }}
-            >
-              {user ? 
-                'Continue your professional development journey with world-class courses' : 
-                'Join thousands of professionals advancing their careers with our premium learning platform'
-              }
-            </Typography>
-          </Fade>
-
-          <Zoom in={true} timeout={1800}>
-            <Box sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: 4, 
-              mb: 4,
-              flexWrap: 'wrap'
-            }}>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: '#1976d2', fontWeight: 700 }}>
-                  50K+
-                </Typography>
-                <Typography variant="body1" sx={{ color: '#666' }}>
-                  Active Learners
-                </Typography>
-              </Box>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: '#1976d2', fontWeight: 700 }}>
-                  500+
-                </Typography>
-                <Typography variant="body1" sx={{ color: '#666' }}>
-                  Expert Courses
-                </Typography>
-              </Box>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: '#1976d2', fontWeight: 700 }}>
-                  98%
-                </Typography>
-                <Typography variant="body1" sx={{ color: '#666' }}>
-                  Success Rate
-                </Typography>
-              </Box>
-            </Box>
-          </Zoom>
+         
         </Box>
       </Fade>
 
@@ -364,18 +320,32 @@ const CoursesPage = () => {
                 }}>
                   <Box sx={{ position: 'relative', overflow: 'hidden' }}>
                     {course.coverImage && (
+                      // <CardMedia
+                      //   component="img"
+                      //   height="240"
+                      //   image={`${IMAGE_BASE_URL}/${course.coverImage.replace(/\\/g, "/")}`}
+                      //   alt={course.title}
+                      //   className="course-image"
+                      //   sx={{
+                      //     transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                      //     objectFit: 'cover',
+                      //     filter: 'brightness(1.1) contrast(1.1)'
+                      //   }}
+                      // />
                       <CardMedia
                         component="img"
                         height="240"
-                        image={`${IMAGE_BASE_URL}/${course.coverImage.replace(/\\/g, "/")}`}
+                        image={getCoverSrc(course)}
                         alt={course.title}
                         className="course-image"
+                        
                         sx={{
                           transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                           objectFit: 'cover',
                           filter: 'brightness(1.1) contrast(1.1)'
                         }}
                       />
+
                     )}
                     <Box
                       className="course-overlay"
@@ -392,22 +362,7 @@ const CoursesPage = () => {
                         gap: 2
                       }}
                     >
-                      <IconButton sx={{
-                        color: 'white',
-                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(20px)',
-                        width: 64,
-                        height: 64,
-                        '&:hover': { 
-                          backgroundColor: 'rgba(255, 255, 255, 0.35)',
-                          transform: 'scale(1.1)'
-                        }
-                      }}>
-                        <PlayArrow sx={{ fontSize: 32 }} />
-                      </IconButton>
-                      <Typography variant="body2" sx={{ color: 'white', fontWeight: 600 }}>
-                        Preview Course
-                      </Typography>
+                      
                     </Box>
                     
                     <Chip
@@ -435,24 +390,7 @@ const CoursesPage = () => {
                       }}
                     />
                     
-                    <IconButton
-                      sx={{
-                        position: 'absolute',
-                        top: 16,
-                        left: 16,
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        backdropFilter: 'blur(20px)',
-                        width: 40,
-                        height: 40,
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                        '&:hover': { 
-                          backgroundColor: 'rgba(255, 255, 255, 1)',
-                          transform: 'scale(1.1)'
-                        }
-                      }}
-                    >
-                      <BookmarkBorder sx={{ fontSize: 20, color: '#1976d2' }} />
-                    </IconButton>
+                    
 
                     <Box 
                       className="course-stats"

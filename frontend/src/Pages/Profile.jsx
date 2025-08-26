@@ -103,9 +103,10 @@ const Profile = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
+      background: "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
       position: 'relative',
-      pb: 4
+      pb: 4,
+      pt: { xs: 8, sm: 10 },
     }}>
       <HomePageNavbar />
       
@@ -114,22 +115,13 @@ const Profile = () => {
         {/* Welcome Header */}
         <Fade in={true} timeout={800}>
           <Box sx={{ 
-            mt: 4, 
+            mt: 5, 
             mb: 4,
             textAlign: 'center',
             color: '#1e40af'
           }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-              <Avatar sx={{ 
-                width: 80, 
-                height: 80, 
-                bgcolor: 'rgba(59, 130, 246, 0.2)',
-                fontSize: '2rem',
-                mr: 2,
-                color: '#1e40af'
-              }}>
-                <PersonIcon sx={{ fontSize: '2rem' }} />
-              </Avatar>
+             
               <Box sx={{ textAlign: 'left' }}>
                 <Typography 
                   variant="h3" 
@@ -142,16 +134,7 @@ const Profile = () => {
                 >
                   Welcome back, {user.name || user.username}!
                 </Typography>
-                <Typography 
-                  variant="subtitle1" 
-                  sx={{ 
-                    opacity: 0.8,
-                    fontSize: '1.1rem',
-                    color: '#3b82f6'
-                  }}
-                >
-                  Manage your learning journey
-                </Typography>
+                
               </Box>
             </Box>
           </Box>

@@ -210,6 +210,7 @@ const EditProfileModal = ({ open, onClose, user, onProfileUpdated }) => {
             label="Email"
             value={form.email}
             onChange={handleChange}
+            disabled
             sx={textFieldStyle}
             InputProps={{
               startAdornment: <Email sx={{ color: '#90caf9', mr: 1 }} />,
@@ -222,6 +223,7 @@ const EditProfileModal = ({ open, onClose, user, onProfileUpdated }) => {
             label="Username"
             value={form.username}
             onChange={handleChange}
+            disabled
             sx={textFieldStyle}
             InputProps={{
               startAdornment: <Person sx={{ color: '#90caf9', mr: 1 }} />,
